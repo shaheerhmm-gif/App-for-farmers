@@ -56,69 +56,81 @@ const LoginPage = ({ onLogin }) => {
         flexDirection: 'column',
         position: 'relative',
         overflow: 'hidden',
-        background: '#4ECDC4',
-        cursor: 'default'
+        background: '#000000'
       }}>
-        {/* Animated Gradient Background */}
+        {/* Animated Mesh Gradient Background */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(135deg, #4ECDC4 0%, #44CF6C 25%, #FFE66D 50%, #FF6B6B 75%, #4ECDC4 100%)',
-          backgroundSize: '400% 400%',
-          animation: 'gradientShift 15s ease infinite'
+          background: 'linear-gradient(125deg, #000000 0%, #0a0a0a 20%, #0d1117 40%, #161b22 60%, #1a1a2e 80%, #16213e 100%)',
+          animation: 'meshMove 20s ease infinite'
         }} />
 
-        {/* Floating Decorative Shapes */}
+        {/* Glowing Orb 1 - Top Left */}
         <div style={{
           position: 'absolute',
-          width: 300,
-          height: 300,
-          top: '5%',
-          left: '-5%',
-          background: 'rgba(255,255,255,0.15)',
-          borderRadius: '60% 40% 70% 30% / 40% 50% 50% 60%',
-          animation: 'floatShape 8s ease-in-out infinite',
-          filter: 'blur(2px)'
+          width: 600,
+          height: 600,
+          top: '-20%',
+          left: '-15%',
+          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, rgba(99, 102, 241, 0.1) 40%, transparent 70%)',
+          filter: 'blur(80px)',
+          animation: 'pulseOrb 8s ease-in-out infinite'
         }} />
+
+        {/* Glowing Orb 2 - Bottom Right */}
         <div style={{
           position: 'absolute',
-          width: 250,
-          height: 250,
-          top: '60%',
-          right: '-8%',
-          background: 'rgba(255,255,255,0.12)',
-          borderRadius: '40% 60% 30% 70% / 50% 40% 60% 50%',
-          animation: 'floatShape 10s ease-in-out infinite reverse',
-          filter: 'blur(2px)'
+          width: 700,
+          height: 700,
+          bottom: '-25%',
+          right: '-20%',
+          background: 'radial-gradient(circle, rgba(236, 72, 153, 0.35) 0%, rgba(236, 72, 153, 0.1) 40%, transparent 70%)',
+          filter: 'blur(100px)',
+          animation: 'pulseOrb 10s ease-in-out infinite reverse'
         }} />
+
+        {/* Glowing Orb 3 - Center Gold */}
         <div style={{
           position: 'absolute',
-          width: 150,
-          height: 150,
+          width: 500,
+          height: 500,
           top: '30%',
-          right: '20%',
-          background: 'rgba(255,107,107,0.2)',
-          borderRadius: '50%',
-          animation: 'floatShape 6s ease-in-out infinite',
-          filter: 'blur(1px)'
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'radial-gradient(circle, rgba(251, 191, 36, 0.25) 0%, rgba(251, 191, 36, 0.05) 50%, transparent 70%)',
+          filter: 'blur(60px)',
+          animation: 'pulseOrb 6s ease-in-out infinite'
         }} />
 
-        {/* Playful Floating Emojis */}
-        {['🌾', '🚜', '🌻', '🌽', '👨‍🌾', '🌱'].map((emoji, i) => (
-          <div key={i} style={{
+        {/* Floating Particles - 30 particles */}
+        {[...Array(30)].map((_, i) => (
+          <div key={`particle-${i}`} style={{
             position: 'absolute',
-            fontSize: 40 + i * 8,
-            left: `${10 + i * 15}%`,
-            top: `${15 + (i % 3) * 25}%`,
-            animation: `bounce ${2 + i * 0.3}s ease-in-out infinite`,
-            animationDelay: `${i * 0.2}s`,
-            opacity: 0.8,
-            filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.15))',
-            transform: `rotate(${-15 + i * 6}deg)`
-          }}>
-            {emoji}
-          </div>
+            width: 3 + (i % 4),
+            height: 3 + (i % 4),
+            background: i % 3 === 0 ? '#FCD34D' : i % 3 === 1 ? '#EC4899' : '#6366F1',
+            borderRadius: '50%',
+            left: `${(i * 3.3) % 100}%`,
+            top: `${(i * 7.7) % 100}%`,
+            boxShadow: `0 0 ${10 + i % 10}px ${i % 3 === 0 ? '#FCD34D' : i % 3 === 1 ? '#EC4899' : '#6366F1'}`,
+            animation: `floatParticle ${8 + (i % 6)}s ease-in-out infinite`,
+            animationDelay: `${(i * 0.3) % 5}s`,
+            opacity: 0.6 + (i % 4) * 0.1
+          }} />
         ))}
+
+        {/* Animated Grid Lines */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `
+            linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px',
+          animation: 'gridMove 30s linear infinite'
+        }} />
 
         {/* Main Content */}
         <div style={{
@@ -129,96 +141,108 @@ const LoginPage = ({ onLogin }) => {
           alignItems: 'center',
           position: 'relative',
           zIndex: 10,
-          padding: '40px 24px',
-          textAlign: 'center'
+          padding: '40px 24px'
         }}>
-          {/* Welcome Badge */}
+          {/* Premium Badge */}
           <div style={{
-            background: 'rgba(255,255,255,0.9)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            background: 'rgba(255,255,255,0.05)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: 50,
-            padding: '12px 28px',
-            marginBottom: 32,
-            boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
-            animation: 'popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards'
+            padding: '10px 24px',
+            marginBottom: 40,
+            animation: 'fadeInDown 1s ease-out'
           }}>
-            <span style={{
-              fontSize: 14,
-              fontWeight: 700,
-              color: '#2D3436',
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase'
-            }}>
-              🇮🇳 WELCOME TO
+            <div style={{
+              width: 8,
+              height: 8,
+              background: '#22C55E',
+              borderRadius: '50%',
+              boxShadow: '0 0 10px #22C55E, 0 0 20px #22C55E',
+              animation: 'pulse 2s ease-in-out infinite'
+            }} />
+            <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13, fontWeight: 600, letterSpacing: '0.1em' }}>
+              LIVE • 2,847 ACTIVE USERS
             </span>
           </div>
 
-          {/* Giant Brand Name */}
+          {/* Giant Logo */}
+          <div style={{
+            fontSize: 100,
+            marginBottom: 20,
+            filter: 'drop-shadow(0 0 40px rgba(251, 191, 36, 0.5))',
+            animation: 'float 4s ease-in-out infinite'
+          }}>🌾</div>
+
+          {/* Brand Name with Gradient */}
           <h1 style={{
-            fontSize: 'clamp(72px, 20vw, 160px)',
+            fontSize: 'clamp(60px, 15vw, 120px)',
             fontWeight: 900,
-            color: 'white',
+            background: 'linear-gradient(135deg, #FFFFFF 0%, #E0E0E0 50%, #FCD34D 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
             margin: 0,
-            lineHeight: 0.85,
             letterSpacing: '-0.04em',
-            textShadow: '6px 6px 0 rgba(0,0,0,0.1), 12px 12px 0 rgba(0,0,0,0.05)',
-            fontFamily: "'Georgia', serif",
-            animation: 'titleBounce 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards'
+            lineHeight: 1,
+            textAlign: 'center',
+            animation: 'titleReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards',
+            filter: 'drop-shadow(0 4px 30px rgba(252, 211, 77, 0.2))'
           }}>
-            KHET
-          </h1>
-          <h1 style={{
-            fontSize: 'clamp(72px, 20vw, 160px)',
-            fontWeight: 900,
-            color: '#FF6B6B',
-            margin: '-20px 0 0',
-            lineHeight: 0.85,
-            letterSpacing: '-0.04em',
-            textShadow: '6px 6px 0 rgba(0,0,0,0.1), 12px 12px 0 rgba(0,0,0,0.05)',
-            fontFamily: "'Georgia', serif",
-            animation: 'titleBounce 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s backwards'
-          }}>
-            BANDHU
+            KhetBandhu
           </h1>
 
-          {/* Tagline */}
+          {/* Tagline with glow */}
           <p style={{
-            fontSize: 20,
-            color: 'rgba(255,255,255,0.9)',
-            marginTop: 28,
-            fontWeight: 600,
-            letterSpacing: '0.1em',
-            animation: 'fadeInUp 0.8s ease-out 0.7s backwards'
+            fontSize: 18,
+            color: 'rgba(255,255,255,0.5)',
+            marginTop: 16,
+            fontWeight: 500,
+            letterSpacing: '0.3em',
+            textTransform: 'uppercase',
+            animation: 'fadeIn 1s ease-out 0.5s backwards'
           }}>
-            भारत का #1 खेती मार्केटप्लेस
+            India's Premier AgriTech
           </p>
 
-          {/* Stats Row */}
+          {/* Stats Bar */}
           <div style={{
             display: 'flex',
             gap: 48,
-            marginTop: 40,
-            animation: 'fadeInUp 0.8s ease-out 0.9s backwards'
+            marginTop: 48,
+            padding: '24px 40px',
+            background: 'rgba(255,255,255,0.03)',
+            backdropFilter: 'blur(30px)',
+            WebkitBackdropFilter: 'blur(30px)',
+            borderRadius: 24,
+            border: '1px solid rgba(255,255,255,0.08)',
+            animation: 'fadeInUp 1s ease-out 0.7s backwards'
           }}>
             {[
-              { num: '50K+', label: 'FARMERS' },
-              { num: '₹47Cr', label: 'EARNED' },
-              { num: '4.9★', label: 'RATING' }
-            ].map((s, i) => (
+              { value: '₹47Cr+', label: 'GMV', color: '#FCD34D' },
+              { value: '52K+', label: 'FARMERS', color: '#22C55E' },
+              { value: '4.9', label: 'RATING', color: '#EC4899' }
+            ].map((stat, i) => (
               <div key={i} style={{ textAlign: 'center' }}>
                 <p style={{
-                  fontSize: 36,
-                  fontWeight: 900,
-                  color: 'white',
+                  fontSize: 32,
+                  fontWeight: 800,
+                  color: stat.color,
                   margin: 0,
-                  textShadow: '3px 3px 0 rgba(0,0,0,0.1)'
-                }}>{s.num}</p>
+                  textShadow: `0 0 30px ${stat.color}50`,
+                  fontVariantNumeric: 'tabular-nums'
+                }}>{stat.value}</p>
                 <p style={{
-                  fontSize: 11,
-                  color: 'rgba(255,255,255,0.8)',
-                  margin: '4px 0 0',
-                  fontWeight: 700,
-                  letterSpacing: '0.15em'
-                }}>{s.label}</p>
+                  fontSize: 10,
+                  color: 'rgba(255,255,255,0.4)',
+                  margin: '6px 0 0',
+                  fontWeight: 600,
+                  letterSpacing: '0.2em'
+                }}>{stat.label}</p>
               </div>
             ))}
           </div>
@@ -226,165 +250,206 @@ const LoginPage = ({ onLogin }) => {
 
         {/* Bottom Cards Section */}
         <div style={{
-          padding: '0 24px 48px',
+          padding: '0 24px 60px',
           position: 'relative',
           zIndex: 20
         }}>
-          {/* Choice Cards */}
           <div style={{
             display: 'flex',
             flexDirection: 'column',
             gap: 16,
-            maxWidth: 500,
+            maxWidth: 480,
             margin: '0 auto',
-            animation: 'cardsSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s backwards'
+            animation: 'cardsSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.9s backwards'
           }}>
-            {/* Farmer Card */}
+            {/* Farmer Card - Premium Gold */}
             <button
               onClick={() => setUserType('customer')}
               style={{
                 width: '100%',
-                background: 'white',
-                border: 'none',
+                background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(251, 191, 36, 0.05) 100%)',
+                backdropFilter: 'blur(40px)',
+                WebkitBackdropFilter: 'blur(40px)',
+                border: '1px solid rgba(251, 191, 36, 0.3)',
                 borderRadius: 24,
-                padding: '24px 28px',
+                padding: '28px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: 20,
                 cursor: 'pointer',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
-                transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+                transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+                position: 'relative',
+                overflow: 'hidden'
               }}
               onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-6px) scale(1.02)';
-                e.currentTarget.style.boxShadow = '0 20px 48px rgba(0,0,0,0.15)';
+                e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
+                e.currentTarget.style.boxShadow = '0 30px 80px rgba(251, 191, 36, 0.25), 0 0 0 1px rgba(251, 191, 36, 0.5), inset 0 0 60px rgba(251, 191, 36, 0.1)';
+                e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.6)';
               }}
               onMouseOut={e => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.12)';
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.3)';
               }}
             >
+              {/* Shimmer Effect */}
               <div style={{
-                width: 70,
-                height: 70,
-                background: 'linear-gradient(135deg, #FFE66D 0%, #F59E0B 100%)',
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(90deg, transparent, rgba(251,191,36,0.2), transparent)',
+                animation: 'shimmer 3s linear infinite'
+              }} />
+
+              <div style={{
+                width: 72,
+                height: 72,
+                background: 'linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)',
                 borderRadius: 20,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: 36,
-                flexShrink: 0
+                boxShadow: '0 10px 40px rgba(251, 191, 36, 0.4)',
+                flexShrink: 0,
+                position: 'relative',
+                zIndex: 1
               }}>👨‍🌾</div>
-              <div style={{ flex: 1, textAlign: 'left' }}>
-                <p style={{ color: '#F59E0B', fontSize: 12, fontWeight: 700, margin: 0, letterSpacing: '0.15em' }}>FARMER</p>
-                <p style={{ color: '#2D3436', fontSize: 22, fontWeight: 800, margin: '4px 0 0' }}>Book Equipment</p>
-                <p style={{ color: '#636E72', fontSize: 13, margin: '6px 0 0' }}>Tractor • JCB • Harvester</p>
+              <div style={{ flex: 1, textAlign: 'left', position: 'relative', zIndex: 1 }}>
+                <p style={{ color: '#FCD34D', fontSize: 12, fontWeight: 700, margin: 0, letterSpacing: '0.15em' }}>FARMER</p>
+                <p style={{ color: 'white', fontSize: 24, fontWeight: 800, margin: '6px 0 0' }}>Book Equipment</p>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 14, margin: '8px 0 0' }}>Tractor • JCB • Harvester • Sprayer</p>
               </div>
               <div style={{
-                width: 52,
-                height: 52,
-                background: '#F59E0B',
-                borderRadius: 16,
+                width: 56,
+                height: 56,
+                background: 'rgba(251, 191, 36, 0.2)',
+                borderRadius: 18,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 22,
-                color: 'white',
-                fontWeight: 700
+                fontSize: 24,
+                color: '#FCD34D',
+                flexShrink: 0,
+                position: 'relative',
+                zIndex: 1,
+                border: '1px solid rgba(251, 191, 36, 0.3)'
               }}>→</div>
             </button>
 
-            {/* Owner Card */}
+            {/* Owner Card - Premium Glass */}
             <button
               onClick={() => setUserType('owner')}
               style={{
                 width: '100%',
-                background: 'rgba(255,255,255,0.15)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                border: '2px solid rgba(255,255,255,0.3)',
+                background: 'rgba(255,255,255,0.03)',
+                backdropFilter: 'blur(40px)',
+                WebkitBackdropFilter: 'blur(40px)',
+                border: '1px solid rgba(255,255,255,0.1)',
                 borderRadius: 24,
-                padding: '24px 28px',
+                padding: '28px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: 20,
                 cursor: 'pointer',
-                transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+                transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
               onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-6px) scale(1.02)';
-                e.currentTarget.style.background = 'rgba(255,255,255,0.25)';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)';
+                e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
+                e.currentTarget.style.boxShadow = '0 30px 80px rgba(99, 102, 241, 0.2), 0 0 0 1px rgba(99, 102, 241, 0.4), inset 0 0 60px rgba(99, 102, 241, 0.05)';
+                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.5)';
+                e.currentTarget.style.background = 'rgba(99, 102, 241, 0.1)';
               }}
               onMouseOut={e => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
               }}
             >
               <div style={{
-                width: 70,
-                height: 70,
-                background: 'rgba(255,255,255,0.2)',
+                width: 72,
+                height: 72,
+                background: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)',
                 borderRadius: 20,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: 36,
+                boxShadow: '0 10px 40px rgba(99, 102, 241, 0.4)',
                 flexShrink: 0
               }}>🚜</div>
               <div style={{ flex: 1, textAlign: 'left' }}>
-                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12, fontWeight: 700, margin: 0, letterSpacing: '0.15em' }}>OWNER</p>
-                <p style={{ color: 'white', fontSize: 22, fontWeight: 800, margin: '4px 0 0' }}>Earn Money</p>
-                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, margin: '6px 0 0' }}>List machines • Get bookings</p>
+                <p style={{ color: '#A5B4FC', fontSize: 12, fontWeight: 700, margin: 0, letterSpacing: '0.15em' }}>OWNER</p>
+                <p style={{ color: 'white', fontSize: 24, fontWeight: 800, margin: '6px 0 0' }}>Earn Money</p>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 14, margin: '8px 0 0' }}>List machines • Get bookings</p>
               </div>
               <div style={{
-                width: 52,
-                height: 52,
-                background: 'rgba(255,255,255,0.2)',
-                borderRadius: 16,
+                width: 56,
+                height: 56,
+                background: 'rgba(99, 102, 241, 0.2)',
+                borderRadius: 18,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 22,
-                color: 'white',
-                fontWeight: 700
+                fontSize: 24,
+                color: '#A5B4FC',
+                flexShrink: 0,
+                border: '1px solid rgba(99, 102, 241, 0.3)'
               }}>→</div>
             </button>
           </div>
         </div>
 
         <style>{`
-          @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
+          @keyframes meshMove {
+            0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
           }
-          @keyframes floatShape {
+          @keyframes pulseOrb {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+          }
+          @keyframes floatParticle {
             0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(20px, -30px) rotate(5deg); }
-            50% { transform: translate(-10px, -50px) rotate(-3deg); }
-            75% { transform: translate(-30px, -20px) rotate(2deg); }
+            25% { transform: translate(30px, -40px) rotate(90deg); }
+            50% { transform: translate(-20px, -80px) rotate(180deg); }
+            75% { transform: translate(-50px, -40px) rotate(270deg); }
           }
-          @keyframes bounce {
-            0%, 100% { transform: translateY(0) rotate(var(--rotate, 0deg)); }
-            50% { transform: translateY(-20px) rotate(var(--rotate, 0deg)); }
+          @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
           }
-          @keyframes popIn {
-            from { transform: scale(0.5); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+          @keyframes fadeInDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
           }
-          @keyframes titleBounce {
-            from { transform: translateY(80px) scale(0.8); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
+          @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px #22C55E, 0 0 20px #22C55E; }
+            50% { transform: scale(1.2); box-shadow: 0 0 20px #22C55E, 0 0 40px #22C55E; }
+          }
+          @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+          }
+          @keyframes titleReveal {
+            from { transform: translateY(60px) scale(0.9); opacity: 0; filter: blur(10px); }
+            to { transform: translateY(0) scale(1); opacity: 1; filter: blur(0); }
+          }
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
           }
           @keyframes fadeInUp {
-            from { transform: translateY(30px); opacity: 0; }
+            from { transform: translateY(40px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
           }
           @keyframes cardsSlideUp {
-            from { transform: translateY(60px); opacity: 0; }
+            from { transform: translateY(80px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
+          }
+          @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
           }
         `}</style>
       </div>
