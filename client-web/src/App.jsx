@@ -56,80 +56,72 @@ const LoginPage = ({ onLogin }) => {
         flexDirection: 'column',
         position: 'relative',
         overflow: 'hidden',
-        background: '#000000'
+        background: '#1A1A1D'
       }}>
-        {/* Animated Mesh Gradient Background */}
-        <div style={{
+        {/* Animated Dots Background - 60 dots */}
+        {[...Array(60)].map((_, i) => (
+          <div key={`dot-${i}`} style={{
+            position: 'absolute',
+            width: 6 + (i % 4) * 2,
+            height: 6 + (i % 4) * 2,
+            background: i % 5 === 0 ? '#FF2647' : i % 7 === 0 ? '#22C55E' : 'rgba(255,255,255,0.4)',
+            borderRadius: '50%',
+            left: `${(i * 1.7) % 100}%`,
+            top: `${(i * 2.3) % 100}%`,
+            boxShadow: i % 5 === 0 ? '0 0 20px #FF2647, 0 0 40px #FF2647' : i % 7 === 0 ? '0 0 15px #22C55E' : 'none',
+            animation: `dotFloat ${6 + (i % 4)}s ease-in-out infinite`,
+            animationDelay: `${(i * 0.1) % 3}s`,
+            opacity: 0.3 + (i % 5) * 0.15
+          }} />
+        ))}
+
+        {/* SVG Connecting Lines - Creates the anime.js look */}
+        <svg style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(125deg, #000000 0%, #0a0a0a 20%, #0d1117 40%, #161b22 60%, #1a1a2e 80%, #16213e 100%)',
-          animation: 'meshMove 20s ease infinite'
-        }} />
+          width: '100%',
+          height: '100%',
+          opacity: 0.15
+        }}>
+          {[...Array(30)].map((_, i) => (
+            <line
+              key={`line-${i}`}
+              x1={`${(i * 3.3) % 100}%`}
+              y1={`${(i * 2.7) % 100}%`}
+              x2={`${((i + 10) * 3.3) % 100}%`}
+              y2={`${((i + 15) * 2.7) % 100}%`}
+              stroke={i % 3 === 0 ? '#FF2647' : 'rgba(255,255,255,0.3)'}
+              strokeWidth="1"
+              style={{
+                animation: `lineGlow ${4 + (i % 3)}s ease-in-out infinite`,
+                animationDelay: `${(i * 0.2) % 2}s`
+              }}
+            />
+          ))}
+        </svg>
 
-        {/* Glowing Orb 1 - Top Left */}
+        {/* Large Glow Orb - Red */}
         <div style={{
           position: 'absolute',
           width: 600,
           height: 600,
           top: '-20%',
-          left: '-15%',
-          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, rgba(99, 102, 241, 0.1) 40%, transparent 70%)',
+          right: '-15%',
+          background: 'radial-gradient(circle, rgba(255, 38, 71, 0.2) 0%, transparent 60%)',
           filter: 'blur(80px)',
-          animation: 'pulseOrb 8s ease-in-out infinite'
+          animation: 'orbPulse 8s ease-in-out infinite'
         }} />
 
-        {/* Glowing Orb 2 - Bottom Right */}
-        <div style={{
-          position: 'absolute',
-          width: 700,
-          height: 700,
-          bottom: '-25%',
-          right: '-20%',
-          background: 'radial-gradient(circle, rgba(236, 72, 153, 0.35) 0%, rgba(236, 72, 153, 0.1) 40%, transparent 70%)',
-          filter: 'blur(100px)',
-          animation: 'pulseOrb 10s ease-in-out infinite reverse'
-        }} />
-
-        {/* Glowing Orb 3 - Center Gold */}
+        {/* Large Glow Orb - Green */}
         <div style={{
           position: 'absolute',
           width: 500,
           height: 500,
-          top: '30%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: 'radial-gradient(circle, rgba(251, 191, 36, 0.25) 0%, rgba(251, 191, 36, 0.05) 50%, transparent 70%)',
+          bottom: '-15%',
+          left: '-10%',
+          background: 'radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, transparent 60%)',
           filter: 'blur(60px)',
-          animation: 'pulseOrb 6s ease-in-out infinite'
-        }} />
-
-        {/* Floating Particles - 30 particles */}
-        {[...Array(30)].map((_, i) => (
-          <div key={`particle-${i}`} style={{
-            position: 'absolute',
-            width: 3 + (i % 4),
-            height: 3 + (i % 4),
-            background: i % 3 === 0 ? '#FCD34D' : i % 3 === 1 ? '#EC4899' : '#6366F1',
-            borderRadius: '50%',
-            left: `${(i * 3.3) % 100}%`,
-            top: `${(i * 7.7) % 100}%`,
-            boxShadow: `0 0 ${10 + i % 10}px ${i % 3 === 0 ? '#FCD34D' : i % 3 === 1 ? '#EC4899' : '#6366F1'}`,
-            animation: `floatParticle ${8 + (i % 6)}s ease-in-out infinite`,
-            animationDelay: `${(i * 0.3) % 5}s`,
-            opacity: 0.6 + (i % 4) * 0.1
-          }} />
-        ))}
-
-        {/* Animated Grid Lines */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `
-            linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-          animation: 'gridMove 30s linear infinite'
+          animation: 'orbPulse 10s ease-in-out infinite reverse'
         }} />
 
         {/* Main Content */}
@@ -143,112 +135,74 @@ const LoginPage = ({ onLogin }) => {
           zIndex: 10,
           padding: '40px 24px'
         }}>
-          {/* Premium Badge */}
+          {/* Logo */}
           <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            background: 'rgba(255,255,255,0.05)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: 50,
-            padding: '10px 24px',
-            marginBottom: 40,
-            animation: 'fadeInDown 1s ease-out'
-          }}>
-            <div style={{
-              width: 8,
-              height: 8,
-              background: '#22C55E',
-              borderRadius: '50%',
-              boxShadow: '0 0 10px #22C55E, 0 0 20px #22C55E',
-              animation: 'pulse 2s ease-in-out infinite'
-            }} />
-            <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13, fontWeight: 600, letterSpacing: '0.1em' }}>
-              LIVE • 2,847 ACTIVE USERS
-            </span>
-          </div>
-
-          {/* Giant Logo */}
-          <div style={{
-            fontSize: 100,
-            marginBottom: 20,
-            filter: 'drop-shadow(0 0 40px rgba(251, 191, 36, 0.5))',
+            fontSize: 80,
+            marginBottom: 24,
+            filter: 'drop-shadow(0 0 30px rgba(255, 38, 71, 0.5))',
             animation: 'float 4s ease-in-out infinite'
           }}>🌾</div>
 
-          {/* Brand Name with Gradient */}
+          {/* Brand Name */}
           <h1 style={{
-            fontSize: 'clamp(60px, 15vw, 120px)',
-            fontWeight: 900,
-            background: 'linear-gradient(135deg, #FFFFFF 0%, #E0E0E0 50%, #FCD34D 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            fontSize: 'clamp(48px, 12vw, 96px)',
+            fontWeight: 800,
+            color: 'white',
             margin: 0,
-            letterSpacing: '-0.04em',
-            lineHeight: 1,
+            letterSpacing: '-0.03em',
             textAlign: 'center',
-            animation: 'titleReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards',
-            filter: 'drop-shadow(0 4px 30px rgba(252, 211, 77, 0.2))'
+            animation: 'titleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards'
           }}>
-            KhetBandhu
+            Khet<span style={{ color: '#FF2647' }}>Bandhu</span>
           </h1>
 
-          {/* Tagline with glow */}
+          {/* Tagline */}
           <p style={{
-            fontSize: 18,
+            fontSize: 16,
             color: 'rgba(255,255,255,0.5)',
             marginTop: 16,
             fontWeight: 500,
-            letterSpacing: '0.3em',
+            letterSpacing: '0.2em',
             textTransform: 'uppercase',
             animation: 'fadeIn 1s ease-out 0.5s backwards'
           }}>
-            India's Premier AgriTech
+            India's #1 Farm Equipment Marketplace
           </p>
 
-          {/* Stats Bar */}
+          {/* Stats */}
           <div style={{
             display: 'flex',
-            gap: 48,
+            gap: 40,
             marginTop: 48,
-            padding: '24px 40px',
-            background: 'rgba(255,255,255,0.03)',
-            backdropFilter: 'blur(30px)',
-            WebkitBackdropFilter: 'blur(30px)',
-            borderRadius: 24,
-            border: '1px solid rgba(255,255,255,0.08)',
             animation: 'fadeInUp 1s ease-out 0.7s backwards'
           }}>
             {[
-              { value: '₹47Cr+', label: 'GMV', color: '#FCD34D' },
-              { value: '52K+', label: 'FARMERS', color: '#22C55E' },
-              { value: '4.9', label: 'RATING', color: '#EC4899' }
+              { value: '₹47Cr+', label: 'GMV', color: '#FF2647' },
+              { value: '52K+', label: 'Farmers', color: '#22C55E' },
+              { value: '4.9★', label: 'Rating', color: '#FF2647' }
             ].map((stat, i) => (
               <div key={i} style={{ textAlign: 'center' }}>
                 <p style={{
-                  fontSize: 32,
+                  fontSize: 28,
                   fontWeight: 800,
                   color: stat.color,
                   margin: 0,
-                  textShadow: `0 0 30px ${stat.color}50`,
-                  fontVariantNumeric: 'tabular-nums'
+                  textShadow: `0 0 20px ${stat.color}40`
                 }}>{stat.value}</p>
                 <p style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   color: 'rgba(255,255,255,0.4)',
-                  margin: '6px 0 0',
+                  margin: '4px 0 0',
                   fontWeight: 600,
-                  letterSpacing: '0.2em'
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase'
                 }}>{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Bottom Cards Section */}
+        {/* Bottom Cards */}
         <div style={{
           padding: '0 24px 60px',
           position: 'relative',
@@ -262,194 +216,160 @@ const LoginPage = ({ onLogin }) => {
             margin: '0 auto',
             animation: 'cardsSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.9s backwards'
           }}>
-            {/* Farmer Card - Premium Gold */}
+            {/* Farmer Card */}
             <button
               onClick={() => setUserType('customer')}
               style={{
                 width: '100%',
-                background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(251, 191, 36, 0.05) 100%)',
-                backdropFilter: 'blur(40px)',
-                WebkitBackdropFilter: 'blur(40px)',
-                border: '1px solid rgba(251, 191, 36, 0.3)',
-                borderRadius: 24,
-                padding: '28px',
+                background: 'rgba(255, 38, 71, 0.1)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 38, 71, 0.3)',
+                borderRadius: 16,
+                padding: '24px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: 20,
                 cursor: 'pointer',
-                transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+                transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                 position: 'relative',
                 overflow: 'hidden'
               }}
               onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
-                e.currentTarget.style.boxShadow = '0 30px 80px rgba(251, 191, 36, 0.25), 0 0 0 1px rgba(251, 191, 36, 0.5), inset 0 0 60px rgba(251, 191, 36, 0.1)';
-                e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.6)';
+                e.currentTarget.style.transform = 'translateY(-4px) scale(1.01)';
+                e.currentTarget.style.boxShadow = '0 20px 60px rgba(255, 38, 71, 0.3), 0 0 0 1px rgba(255, 38, 71, 0.5)';
+                e.currentTarget.style.borderColor = 'rgba(255, 38, 71, 0.6)';
               }}
               onMouseOut={e => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
                 e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.3)';
+                e.currentTarget.style.borderColor = 'rgba(255, 38, 71, 0.3)';
               }}
             >
-              {/* Shimmer Effect */}
               <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(90deg, transparent, rgba(251,191,36,0.2), transparent)',
-                animation: 'shimmer 3s linear infinite'
-              }} />
-
-              <div style={{
-                width: 72,
-                height: 72,
-                background: 'linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)',
-                borderRadius: 20,
+                width: 64,
+                height: 64,
+                background: 'linear-gradient(135deg, #FF2647 0%, #FF4757 100%)',
+                borderRadius: 16,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 36,
-                boxShadow: '0 10px 40px rgba(251, 191, 36, 0.4)',
-                flexShrink: 0,
-                position: 'relative',
-                zIndex: 1
+                fontSize: 32,
+                boxShadow: '0 8px 30px rgba(255, 38, 71, 0.4)',
+                flexShrink: 0
               }}>👨‍🌾</div>
-              <div style={{ flex: 1, textAlign: 'left', position: 'relative', zIndex: 1 }}>
-                <p style={{ color: '#FCD34D', fontSize: 12, fontWeight: 700, margin: 0, letterSpacing: '0.15em' }}>FARMER</p>
-                <p style={{ color: 'white', fontSize: 24, fontWeight: 800, margin: '6px 0 0' }}>Book Equipment</p>
-                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 14, margin: '8px 0 0' }}>Tractor • JCB • Harvester • Sprayer</p>
+              <div style={{ flex: 1, textAlign: 'left' }}>
+                <p style={{ color: '#FF2647', fontSize: 12, fontWeight: 700, margin: 0, letterSpacing: '0.1em' }}>FARMER</p>
+                <p style={{ color: 'white', fontSize: 20, fontWeight: 700, margin: '4px 0 0' }}>Book Equipment</p>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, margin: '4px 0 0' }}>Tractor • JCB • Harvester</p>
               </div>
               <div style={{
-                width: 56,
-                height: 56,
-                background: 'rgba(251, 191, 36, 0.2)',
-                borderRadius: 18,
+                width: 48,
+                height: 48,
+                background: 'rgba(255, 38, 71, 0.2)',
+                borderRadius: 12,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 24,
-                color: '#FCD34D',
-                flexShrink: 0,
-                position: 'relative',
-                zIndex: 1,
-                border: '1px solid rgba(251, 191, 36, 0.3)'
+                fontSize: 20,
+                color: '#FF2647'
               }}>→</div>
             </button>
 
-            {/* Owner Card - Premium Glass */}
+            {/* Owner Card */}
             <button
               onClick={() => setUserType('owner')}
               style={{
                 width: '100%',
-                background: 'rgba(255,255,255,0.03)',
-                backdropFilter: 'blur(40px)',
-                WebkitBackdropFilter: 'blur(40px)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: 24,
-                padding: '28px',
+                background: 'rgba(34, 197, 94, 0.08)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid rgba(34, 197, 94, 0.25)',
+                borderRadius: 16,
+                padding: '24px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: 20,
                 cursor: 'pointer',
-                transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
               onMouseOver={e => {
-                e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
-                e.currentTarget.style.boxShadow = '0 30px 80px rgba(99, 102, 241, 0.2), 0 0 0 1px rgba(99, 102, 241, 0.4), inset 0 0 60px rgba(99, 102, 241, 0.05)';
-                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.5)';
-                e.currentTarget.style.background = 'rgba(99, 102, 241, 0.1)';
+                e.currentTarget.style.transform = 'translateY(-4px) scale(1.01)';
+                e.currentTarget.style.boxShadow = '0 20px 60px rgba(34, 197, 94, 0.25), 0 0 0 1px rgba(34, 197, 94, 0.5)';
+                e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.5)';
               }}
               onMouseOut={e => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
                 e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-                e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.25)';
               }}
             >
               <div style={{
-                width: 72,
-                height: 72,
-                background: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)',
-                borderRadius: 20,
+                width: 64,
+                height: 64,
+                background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
+                borderRadius: 16,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 36,
-                boxShadow: '0 10px 40px rgba(99, 102, 241, 0.4)',
+                fontSize: 32,
+                boxShadow: '0 8px 30px rgba(34, 197, 94, 0.4)',
                 flexShrink: 0
               }}>🚜</div>
               <div style={{ flex: 1, textAlign: 'left' }}>
-                <p style={{ color: '#A5B4FC', fontSize: 12, fontWeight: 700, margin: 0, letterSpacing: '0.15em' }}>OWNER</p>
-                <p style={{ color: 'white', fontSize: 24, fontWeight: 800, margin: '6px 0 0' }}>Earn Money</p>
-                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 14, margin: '8px 0 0' }}>List machines • Get bookings</p>
+                <p style={{ color: '#22C55E', fontSize: 12, fontWeight: 700, margin: 0, letterSpacing: '0.1em' }}>OWNER</p>
+                <p style={{ color: 'white', fontSize: 20, fontWeight: 700, margin: '4px 0 0' }}>Earn Money</p>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, margin: '4px 0 0' }}>List machines • Get bookings</p>
               </div>
               <div style={{
-                width: 56,
-                height: 56,
-                background: 'rgba(99, 102, 241, 0.2)',
-                borderRadius: 18,
+                width: 48,
+                height: 48,
+                background: 'rgba(34, 197, 94, 0.2)',
+                borderRadius: 12,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 24,
-                color: '#A5B4FC',
-                flexShrink: 0,
-                border: '1px solid rgba(99, 102, 241, 0.3)'
+                fontSize: 20,
+                color: '#22C55E'
               }}>→</div>
             </button>
           </div>
         </div>
 
         <style>{`
-          @keyframes meshMove {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+          @keyframes dotFloat {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(20px, -30px); }
+            50% { transform: translate(-15px, -50px); }
+            75% { transform: translate(-30px, -20px); }
           }
-          @keyframes pulseOrb {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.2); opacity: 1; }
+          @keyframes lineGlow {
+            0%, 100% { opacity: 0.1; stroke-width: 1; }
+            50% { opacity: 0.4; stroke-width: 2; }
           }
-          @keyframes floatParticle {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(30px, -40px) rotate(90deg); }
-            50% { transform: translate(-20px, -80px) rotate(180deg); }
-            75% { transform: translate(-50px, -40px) rotate(270deg); }
-          }
-          @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(60px, 60px); }
-          }
-          @keyframes fadeInDown {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-          }
-          @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 10px #22C55E, 0 0 20px #22C55E; }
-            50% { transform: scale(1.2); box-shadow: 0 0 20px #22C55E, 0 0 40px #22C55E; }
+          @keyframes orbPulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.15); opacity: 0.8; }
           }
           @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
           }
           @keyframes titleReveal {
-            from { transform: translateY(60px) scale(0.9); opacity: 0; filter: blur(10px); }
-            to { transform: translateY(0) scale(1); opacity: 1; filter: blur(0); }
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
           }
           @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
           }
           @keyframes fadeInUp {
-            from { transform: translateY(40px); opacity: 0; }
+            from { transform: translateY(30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
           }
           @keyframes cardsSlideUp {
-            from { transform: translateY(80px); opacity: 0; }
+            from { transform: translateY(60px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
-          }
-          @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
           }
         `}</style>
       </div>
