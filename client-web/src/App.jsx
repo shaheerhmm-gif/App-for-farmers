@@ -134,35 +134,15 @@ const LoginPage = ({ onLogin }) => {
           }} />
         ))}
 
-        {/* Multiple Tractors at different speeds */}
-        <div style={{
-          position: 'absolute',
-          bottom: '22%',
-          animation: 'tractorDrive 35s linear infinite',
-          fontSize: 28,
-          filter: 'drop-shadow(0 3px 10px rgba(0,0,0,0.4))',
-          opacity: 0.6,
-          zIndex: 4
-        }}>🚜</div>
+        {/* Single Driving Tractor */}
         <div style={{
           position: 'absolute',
           bottom: '18%',
           animation: 'tractorDrive 25s linear infinite',
-          animationDelay: '-5s',
           fontSize: 44,
           filter: 'drop-shadow(0 5px 15px rgba(0,0,0,0.5))',
           opacity: 0.9,
           zIndex: 5
-        }}>🚜</div>
-        <div style={{
-          position: 'absolute',
-          bottom: '14%',
-          animation: 'tractorDrive 45s linear infinite',
-          animationDelay: '-15s',
-          fontSize: 24,
-          filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.3))',
-          opacity: 0.5,
-          zIndex: 3
         }}>🚜</div>
 
         {/* Pulse Rings around Sun */}
