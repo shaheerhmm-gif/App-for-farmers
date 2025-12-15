@@ -1417,11 +1417,11 @@ const OwnerApp = ({ onLogout }) => {
     { id: 5, name: 'Massey 1035 DI', type: 'Tractor', status: 'Available', fuel: 95, operator: null, location: 'Depot', health: 96, revenue: 145000, jobs: 52, hoursRun: 720, lastService: '2 days ago', nextService: '28 days', purchaseYear: 2023, purchasePrice: 580000, currentValue: 560000, efficiency: 97, fuelConsumed: 290, avgJobValue: 2788, image: '🚜' },
   ]);
   const [team, setTeam] = useState([
-    { id: 1, name: 'Raju Kumar', role: 'Senior Driver', status: 'On Job', phone: '98765-43210', jobs: 145, rating: 4.9, earnings: 435000, hoursWorked: 1240, onTimeRate: 98, customerSatisfaction: 99, experience: '5 years', specialization: 'Tractor Expert', certifications: ['ISO Certified', 'Safety Trained'], joinDate: 'Jan 2019' },
-    { id: 2, name: 'Sanjay Yadav', role: 'JCB Operator', status: 'Available', phone: '87654-32109', jobs: 98, rating: 4.7, earnings: 294000, hoursWorked: 890, onTimeRate: 95, customerSatisfaction: 96, experience: '3 years', specialization: 'Excavation Expert', certifications: ['Heavy Machine Licensed'], joinDate: 'Mar 2021' },
-    { id: 3, name: 'Mohan Das', role: 'Harvester Operator', status: 'Off Duty', phone: '76543-21098', jobs: 72, rating: 4.8, earnings: 216000, hoursWorked: 650, onTimeRate: 97, customerSatisfaction: 98, experience: '2 years', specialization: 'Harvesting', certifications: ['Equipment Certified'], joinDate: 'Aug 2022' },
-    { id: 4, name: 'Vikram Singh', role: 'Lead Supervisor', status: 'On Job', phone: '65432-10987', jobs: 189, rating: 4.95, earnings: 567000, hoursWorked: 1580, onTimeRate: 99, customerSatisfaction: 100, experience: '7 years', specialization: 'Fleet Management', certifications: ['ISO Certified', 'Leadership Trained', 'First Aid'], joinDate: 'Sep 2017' },
-    { id: 5, name: 'Amit Patel', role: 'Tractor Driver', status: 'Available', phone: '54321-09876', jobs: 67, rating: 4.6, earnings: 201000, hoursWorked: 540, onTimeRate: 94, customerSatisfaction: 95, experience: '1.5 years', specialization: 'Ploughing', certifications: ['Safety Trained'], joinDate: 'Jun 2023' },
+    { id: 1, name: 'Raju Kumar', role: 'Senior Driver', status: 'On Job', phone: '98765-43210', jobs: 145, rating: 4.9, earnings: 435000, hoursWorked: 1240, onTimeRate: 98, customerSatisfaction: 99, experience: '5 years', specialization: 'Tractor Expert', certifications: ['ISO Certified', 'Safety Trained'], joinDate: 'Jan 2019', qualification: '10th Pass', age: 32, familyMembers: 5 },
+    { id: 2, name: 'Sanjay Yadav', role: 'JCB Operator', status: 'Available', phone: '87654-32109', jobs: 98, rating: 4.7, earnings: 294000, hoursWorked: 890, onTimeRate: 95, customerSatisfaction: 96, experience: '3 years', specialization: 'Excavation Expert', certifications: ['Heavy Machine Licensed'], joinDate: 'Mar 2021', qualification: '12th Pass', age: 28, familyMembers: 4 },
+    { id: 3, name: 'Mohan Das', role: 'Harvester Operator', status: 'Off Duty', phone: '76543-21098', jobs: 72, rating: 4.8, earnings: 216000, hoursWorked: 650, onTimeRate: 97, customerSatisfaction: 98, experience: '2 years', specialization: 'Harvesting', certifications: ['Equipment Certified'], joinDate: 'Aug 2022', qualification: '8th Pass', age: 45, familyMembers: 7 },
+    { id: 4, name: 'Vikram Singh', role: 'Lead Supervisor', status: 'On Job', phone: '65432-10987', jobs: 189, rating: 4.95, earnings: 567000, hoursWorked: 1580, onTimeRate: 99, customerSatisfaction: 100, experience: '7 years', specialization: 'Fleet Management', certifications: ['ISO Certified', 'Leadership Trained', 'First Aid'], joinDate: 'Sep 2017', qualification: 'Graduate (B.A.)', age: 35, familyMembers: 4 },
+    { id: 5, name: 'Amit Patel', role: 'Tractor Driver', status: 'Available', phone: '54321-09876', jobs: 67, rating: 4.6, earnings: 201000, hoursWorked: 540, onTimeRate: 94, customerSatisfaction: 95, experience: '1.5 years', specialization: 'Ploughing', certifications: ['Safety Trained'], joinDate: 'Jun 2023', qualification: '10th Pass', age: 24, familyMembers: 3 },
   ]);
   const [requests, setRequests] = useState([
     { id: 101, farmer: 'Ramesh Patil', service: 'Ploughing', area: '2 Acres', when: 'Tomorrow, 9 AM', amount: 1200, phone: '99887-76655', location: 'Village Rampur' },
@@ -2859,6 +2859,86 @@ const OwnerApp = ({ onLogout }) => {
         </Modal>
       )}
 
+      {modal?.type === 'teamDetail' && modal.member && (
+        <Modal onClose={() => setModal(null)}>
+          <div style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+            {/* Header */}
+            <div style={{ textAlign: 'center', marginBottom: 24 }}>
+              <Avatar seed={modal.member.name} size={100} />
+              <h2 style={{ fontSize: 24, fontWeight: 700, margin: '16px 0 4px' }}>{modal.member.name}</h2>
+              <p style={{ fontSize: 14, color: '#666' }}>{modal.member.role} · {modal.member.experience}</p>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 12 }}>
+                <span style={{ background: '#E8F5E9', color: '#2E7D32', padding: '4px 12px', borderRadius: 12, fontSize: 11, fontWeight: 600 }}>
+                  {modal.member.status}
+                </span>
+                <span style={{ background: '#FEF3C7', color: '#D97706', padding: '4px 12px', borderRadius: 12, fontSize: 11, fontWeight: 600 }}>
+                  ⭐ {modal.member.rating} Rating
+                </span>
+              </div>
+            </div>
+
+            {/* Personal Details - NEW SECTION */}
+            <div style={{ background: '#f5f5f0', borderRadius: 16, padding: 16, marginBottom: 16 }}>
+              <h4 style={{ fontSize: 14, fontWeight: 700, marginBottom: 12 }}>👤 Personal Details</h4>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+                <div style={{ background: 'white', padding: 12, borderRadius: 12 }}>
+                  <p style={{ fontSize: 10, color: '#666' }}>Qualification</p>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: '#1B4332' }}>{modal.member.qualification}</p>
+                </div>
+                <div style={{ background: 'white', padding: 12, borderRadius: 12 }}>
+                  <p style={{ fontSize: 10, color: '#666' }}>Age</p>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: '#1B4332' }}>{modal.member.age} Years</p>
+                </div>
+                <div style={{ background: 'white', padding: 12, borderRadius: 12 }}>
+                  <p style={{ fontSize: 10, color: '#666' }}>Family Size</p>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: '#1B4332' }}>{modal.member.familyMembers} Members</p>
+                </div>
+                <div style={{ background: 'white', padding: 12, borderRadius: 12 }}>
+                  <p style={{ fontSize: 10, color: '#666' }}>Joined</p>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: '#1B4332' }}>{modal.member.joinDate}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Performance Stats */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12, marginBottom: 16 }}>
+              <div style={{ background: '#E8F5E9', borderRadius: 16, padding: 16, textAlign: 'center' }}>
+                <p style={{ fontSize: 24, fontWeight: 800, color: '#2E7D32' }}>{modal.member.jobs}</p>
+                <p style={{ fontSize: 11, color: '#666' }}>Jobs Completed</p>
+              </div>
+              <div style={{ background: '#FEF3C7', borderRadius: 16, padding: 16, textAlign: 'center' }}>
+                <p style={{ fontSize: 24, fontWeight: 800, color: '#D97706' }}>{formatCurrency(modal.member.earnings)}</p>
+                <p style={{ fontSize: 11, color: '#666' }}>Total Earnings</p>
+              </div>
+            </div>
+
+            {/* Certifications */}
+            <div style={{ background: 'white', borderRadius: 16, border: '1px solid #eee', padding: 16 }}>
+              <h4 style={{ fontSize: 14, fontWeight: 700, marginBottom: 12 }}>🏅 Certifications & Skills</h4>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                {modal.member.certifications.map((c, i) => (
+                  <span key={i} style={{ background: '#F3F4F6', color: '#4B5563', padding: '6px 12px', borderRadius: 20, fontSize: 12, fontWeight: 500 }}>
+                    {c}
+                  </span>
+                ))}
+                <span style={{ background: '#F3F4F6', color: '#4B5563', padding: '6px 12px', borderRadius: 20, fontSize: 12, fontWeight: 500 }}>
+                  {modal.member.specialization}
+                </span>
+              </div>
+            </div>
+
+            <div style={{ marginTop: 24, display: 'flex', gap: 12 }}>
+              <button style={{ flex: 1, background: '#22C55E', color: 'white', border: 'none', padding: '14px', borderRadius: 12, fontSize: 14, fontWeight: 600, cursor: 'pointer' }} onClick={() => showToast(`Called ${modal.member.name}`)}>
+                📞 Call {modal.member.name.split(' ')[0]}
+              </button>
+              <button style={{ flex: 1, background: '#f5f5f0', color: '#333', border: 'none', padding: '14px', borderRadius: 12, fontSize: 14, fontWeight: 600, cursor: 'pointer' }} onClick={() => showToast('Message sent via WhatsApp')}>
+                💬 Message
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
+
       <nav className="dock owner">
         {[
           { id: 'home', icon: '⊞', label: 'Home' },
@@ -2873,7 +2953,7 @@ const OwnerApp = ({ onLogout }) => {
           </button>
         ))}
       </nav>
-    </div>
+    </div >
   );
 };
 
