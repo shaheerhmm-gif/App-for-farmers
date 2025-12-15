@@ -1592,17 +1592,26 @@ const OwnerApp = ({ onLogout }) => {
       { date: '04 Dec 2024', description: 'Harvesting Service - 10 Acres', customer: 'Meera Bai', machine: 'John Deere W70', operator: 'Mohan Das', status: 'Completed', amount: 8000 },
     ];
 
-    // Create CSV content
-    const headers = ['Date', 'Description', 'Customer', 'Machine', 'Operator', 'Status', 'Amount (₹)'];
+    // Create CSV content with proper escaping
+    const headers = ['Date', 'Description', 'Customer', 'Machine', 'Operator', 'Status', 'Amount'];
+    const escapeCSV = (str) => {
+      if (str === null || str === undefined) return '';
+      const s = String(str);
+      if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+        return `"${s.replace(/"/g, '""')}"`;
+      }
+      return s;
+    };
+
     const csvRows = [
       headers.join(','),
       ...transactions.map(t => [
-        t.date,
-        `"${t.description}"`,
-        t.customer,
-        t.machine,
-        t.operator,
-        t.status,
+        escapeCSV(t.date),
+        escapeCSV(t.description),
+        escapeCSV(t.customer),
+        escapeCSV(t.machine),
+        escapeCSV(t.operator),
+        escapeCSV(t.status),
         t.amount
       ].join(','))
     ];
@@ -1611,21 +1620,34 @@ const OwnerApp = ({ onLogout }) => {
     const totalEarnings = transactions.filter(t => t.amount > 0).reduce((a, t) => a + t.amount, 0);
     const totalExpenses = Math.abs(transactions.filter(t => t.amount < 0).reduce((a, t) => a + t.amount, 0));
     csvRows.push('');
-    csvRows.push(`"Total Earnings",,,,,"",${totalEarnings}`);
-    csvRows.push(`"Total Expenses",,,,,"",${totalExpenses}`);
-    csvRows.push(`"Net Income",,,,,"",${totalEarnings - totalExpenses}`);
+    csvRows.push(`Total Earnings,,,,,, ${totalEarnings}`);
+    csvRows.push(`Total Expenses,,,,,, ${totalExpenses}`);
+    csvRows.push(`Net Income,,,,,, ${totalEarnings - totalExpenses}`);
 
-    const csvContent = csvRows.join('\n');
-    const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `KhetBandhu_Transactions_${new Date().toISOString().split('T')[0]}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    showToast('📊 Excel file downloaded!');
+    const csvContent = csvRows.join('\r\n');
+
+    // Use data URI method for better compatibility
+    const BOM = '\uFEFF';
+    const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8' });
+    const fileName = `KhetBandhu_Report_${new Date().toISOString().slice(0, 10)}.csv`;
+
+    // For iOS/Safari compatibility
+    if (navigator.msSaveBlob) {
+      navigator.msSaveBlob(blob, fileName);
+    } else {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.setAttribute('download', fileName);
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 100);
+    }
+    showToast('📊 CSV file downloaded! Open in Excel.');
   };
 
   // Download PDF Report
