@@ -118,28 +118,68 @@ const LoginPage = ({ onLogin }) => {
           filter: 'blur(20px)'
         }} />
 
-        {/* Animated Tractor Silhouette */}
+        {/* Flying Stars */}
+        {[...Array(8)].map((_, i) => (
+          <div key={`star-${i}`} style={{
+            position: 'absolute',
+            width: 4,
+            height: 4,
+            background: '#FCD34D',
+            borderRadius: '50%',
+            left: `${10 + i * 12}%`,
+            top: `${20 + (i % 3) * 25}%`,
+            boxShadow: '0 0 10px #FCD34D, 0 0 20px #FCD34D',
+            animation: `twinkle ${2 + i * 0.3}s ease-in-out infinite`,
+            animationDelay: `${i * 0.4}s`
+          }} />
+        ))}
+
+        {/* Multiple Tractors at different speeds */}
+        <div style={{
+          position: 'absolute',
+          bottom: '22%',
+          animation: 'tractorDrive 35s linear infinite',
+          fontSize: 28,
+          filter: 'drop-shadow(0 3px 10px rgba(0,0,0,0.4))',
+          opacity: 0.6,
+          zIndex: 4
+        }}>🚜</div>
         <div style={{
           position: 'absolute',
           bottom: '18%',
           animation: 'tractorDrive 25s linear infinite',
-          fontSize: 40,
+          animationDelay: '-5s',
+          fontSize: 44,
           filter: 'drop-shadow(0 5px 15px rgba(0,0,0,0.5))',
           opacity: 0.9,
           zIndex: 5
-        }}>
-          🚜
-        </div>
-
-        {/* Grain Texture Overlay */}
+        }}>🚜</div>
         <div style={{
           position: 'absolute',
-          inset: 0,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          opacity: 0.03,
-          mixBlendMode: 'overlay',
-          pointerEvents: 'none'
-        }} />
+          bottom: '14%',
+          animation: 'tractorDrive 45s linear infinite',
+          animationDelay: '-15s',
+          fontSize: 24,
+          filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.3))',
+          opacity: 0.5,
+          zIndex: 3
+        }}>🚜</div>
+
+        {/* Pulse Rings around Sun */}
+        {[1, 2, 3].map(i => (
+          <div key={`ring-${i}`} style={{
+            position: 'absolute',
+            width: `${150 + i * 80}px`,
+            height: `${150 + i * 80}px`,
+            bottom: `calc(15% - ${i * 40}px)`,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            border: `1px solid rgba(251, 191, 36, ${0.3 - i * 0.08})`,
+            borderRadius: '50%',
+            animation: `pulseRing ${3 + i}s ease-out infinite`,
+            animationDelay: `${i * 0.5}s`
+          }} />
+        ))}
 
         {/* Main Content */}
         <div style={{
@@ -149,79 +189,124 @@ const LoginPage = ({ onLogin }) => {
           justifyContent: 'space-between',
           position: 'relative',
           zIndex: 10,
-          padding: '60px 24px 0'
+          padding: '50px 24px 0'
         }}>
           {/* Top Section - Brand */}
           <div style={{ textAlign: 'center' }}>
+            {/* Live Activity Indicator */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(34, 197, 94, 0.15)',
+              border: '1px solid rgba(34, 197, 94, 0.3)',
+              borderRadius: 20,
+              padding: '8px 16px',
+              marginBottom: 24,
+              animation: 'fadeIn 1s ease-out 0.1s backwards'
+            }}>
+              <div style={{
+                width: 8,
+                height: 8,
+                background: '#22C55E',
+                borderRadius: '50%',
+                animation: 'livePulse 2s ease-in-out infinite',
+                boxShadow: '0 0 10px #22C55E'
+              }} />
+              <span style={{ color: '#22C55E', fontSize: 12, fontWeight: 600 }}>
+                127 bookings today
+              </span>
+            </div>
+
             {/* Animated Word Reveal */}
             <div style={{ overflow: 'hidden' }}>
               <h1 style={{
-                fontSize: 'clamp(48px, 15vw, 72px)',
+                fontSize: 'clamp(56px, 18vw, 84px)',
                 fontWeight: 900,
                 color: 'white',
                 margin: 0,
-                letterSpacing: '-0.05em',
-                lineHeight: 1,
+                letterSpacing: '-0.06em',
+                lineHeight: 0.9,
                 fontFamily: "'Inter', -apple-system, sans-serif",
-                animation: 'wordSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards'
+                animation: 'wordSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards',
+                textShadow: '0 4px 30px rgba(0,0,0,0.5)'
               }}>
                 Khet
               </h1>
             </div>
             <div style={{ overflow: 'hidden' }}>
               <h1 style={{
-                fontSize: 'clamp(48px, 15vw, 72px)',
+                fontSize: 'clamp(56px, 18vw, 84px)',
                 fontWeight: 900,
-                background: 'linear-gradient(135deg, #FCD34D 0%, #F59E0B 50%, #D97706 100%)',
+                background: 'linear-gradient(135deg, #FCD34D 0%, #F59E0B 40%, #EA580C 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
-                margin: '-10px 0 0',
-                letterSpacing: '-0.05em',
-                lineHeight: 1,
+                margin: '-8px 0 0',
+                letterSpacing: '-0.06em',
+                lineHeight: 0.9,
                 fontFamily: "'Inter', -apple-system, sans-serif",
-                animation: 'wordSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards'
+                animation: 'wordSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards',
+                filter: 'drop-shadow(0 0 40px rgba(251, 191, 36, 0.3))'
               }}>
                 Bandhu
               </h1>
             </div>
 
-            {/* Tagline with typing cursor */}
+            {/* Tagline with glow */}
             <p style={{
-              fontSize: 16,
-              color: 'rgba(255,255,255,0.5)',
-              marginTop: 24,
-              fontWeight: 400,
-              letterSpacing: '0.2em',
+              fontSize: 14,
+              color: 'rgba(255,255,255,0.6)',
+              marginTop: 20,
+              fontWeight: 500,
+              letterSpacing: '0.25em',
               textTransform: 'uppercase',
               animation: 'fadeIn 1s ease-out 0.8s backwards'
             }}>
-              खेती का नया अंदाज़
+              India's #1 AgriTech Platform
             </p>
           </div>
 
-          {/* Middle - Interactive Visual */}
+          {/* MASSIVE Stats Section - Investor Wow */}
           <div style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: 16,
-            padding: '40px 0',
+            gap: 32,
+            padding: '30px 0',
             animation: 'fadeIn 1s ease-out 1s backwards'
           }}>
             {[
-              { emoji: '🌾', delay: '0s' },
-              { emoji: '🚜', delay: '0.1s' },
-              { emoji: '👨‍🌾', delay: '0.2s' },
-              { emoji: '🌻', delay: '0.3s' },
-              { emoji: '🌽', delay: '0.4s' }
-            ].map((item, i) => (
+              { value: '₹47', suffix: 'Cr+', label: 'GMV', color: '#FCD34D' },
+              { value: '52', suffix: 'K+', label: 'USERS', color: '#22C55E' },
+              { value: '4.9', suffix: '★', label: 'RATING', color: '#F59E0B' }
+            ].map((stat, i) => (
               <div key={i} style={{
-                fontSize: 36,
-                animation: `floatIcon 3s ease-in-out infinite`,
-                animationDelay: item.delay,
-                filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.3))'
+                textAlign: 'center',
+                animation: `popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${1.2 + i * 0.15}s backwards`
               }}>
-                {item.emoji}
+                <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center' }}>
+                  <span style={{
+                    fontSize: 36,
+                    fontWeight: 900,
+                    color: stat.color,
+                    fontVariantNumeric: 'tabular-nums',
+                    letterSpacing: '-0.02em',
+                    textShadow: `0 0 30px ${stat.color}40`
+                  }}>{stat.value}</span>
+                  <span style={{
+                    fontSize: 18,
+                    fontWeight: 700,
+                    color: stat.color,
+                    marginLeft: 2
+                  }}>{stat.suffix}</span>
+                </div>
+                <p style={{
+                  fontSize: 10,
+                  color: 'rgba(255,255,255,0.4)',
+                  margin: '6px 0 0',
+                  fontWeight: 600,
+                  letterSpacing: '0.15em'
+                }}>{stat.label}</p>
               </div>
             ))}
           </div>
@@ -497,6 +582,22 @@ const LoginPage = ({ onLogin }) => {
           @keyframes borderGlow {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
+          }
+          @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+          }
+          @keyframes pulseRing {
+            0% { transform: translateX(-50%) scale(1); opacity: 0.3; }
+            100% { transform: translateX(-50%) scale(1.5); opacity: 0; }
+          }
+          @keyframes livePulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+          }
+          @keyframes popIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
           }
         `}</style>
       </div>
