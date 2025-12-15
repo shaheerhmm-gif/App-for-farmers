@@ -62,21 +62,11 @@ const LoginPage = ({ onLogin }) => {
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: `
-            linear-gradient(to bottom, 
-              #000000 0%,
-              #0a0a0a 30%,
-              #1a0f0a 50%,
-              #2d1810 65%,
-              #4a2515 80%,
-              #6b3a1a 90%,
-              #8b5a2b 100%
-            )
-          `,
-          animation: 'sunriseGlow 8s ease-in-out infinite alternate'
+          background: 'linear-gradient(to bottom, #000000 0%, #0a0a0a 30%, #1a0f0a 50%, #2d1810 65%, #4a2515 80%, #6b3a1a 90%, #8b5a2b 100%)',
+          willChange: 'filter'
         }} />
 
-        {/* Morphing Blob 1 - Large */}
+        {/* Morphing Blob 1 - Optimized */}
         <div style={{
           position: 'absolute',
           width: '140%',
@@ -85,12 +75,12 @@ const LoginPage = ({ onLogin }) => {
           left: '-20%',
           background: 'radial-gradient(ellipse at center, #1a4d2e 0%, transparent 60%)',
           borderRadius: '60% 40% 70% 30% / 40% 50% 50% 60%',
-          filter: 'blur(60px)',
-          animation: 'morphBlob1 15s ease-in-out infinite',
-          opacity: 0.8
+          filter: 'blur(30px)',
+          opacity: 0.7,
+          willChange: 'transform'
         }} />
 
-        {/* Morphing Blob 2 - Accent */}
+        {/* Morphing Blob 2 - Optimized */}
         <div style={{
           position: 'absolute',
           width: '60%',
@@ -99,67 +89,49 @@ const LoginPage = ({ onLogin }) => {
           right: '-10%',
           background: 'radial-gradient(ellipse at center, #2d5a4a 0%, transparent 70%)',
           borderRadius: '40% 60% 30% 70% / 50% 40% 60% 50%',
-          filter: 'blur(80px)',
-          animation: 'morphBlob2 20s ease-in-out infinite',
-          opacity: 0.6
+          filter: 'blur(40px)',
+          opacity: 0.5,
+          willChange: 'transform'
         }} />
 
-        {/* Golden Sun Glow */}
+        {/* Golden Sun Glow - Simplified */}
         <div style={{
           position: 'absolute',
-          width: '200px',
-          height: '200px',
+          width: '180px',
+          height: '180px',
           bottom: '15%',
           left: '50%',
           transform: 'translateX(-50%)',
-          background: 'radial-gradient(circle, rgba(251, 191, 36, 0.4) 0%, rgba(251, 191, 36, 0.1) 40%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(251, 191, 36, 0.35) 0%, transparent 70%)',
           borderRadius: '50%',
-          animation: 'sunPulse 4s ease-in-out infinite',
-          filter: 'blur(20px)'
+          willChange: 'opacity'
         }} />
 
-        {/* Flying Stars */}
-        {[...Array(8)].map((_, i) => (
+        {/* Twinkling Stars - Reduced to 4 */}
+        {[0, 1, 2, 3].map(i => (
           <div key={`star-${i}`} style={{
             position: 'absolute',
             width: 4,
             height: 4,
             background: '#FCD34D',
             borderRadius: '50%',
-            left: `${10 + i * 12}%`,
-            top: `${20 + (i % 3) * 25}%`,
-            boxShadow: '0 0 10px #FCD34D, 0 0 20px #FCD34D',
-            animation: `twinkle ${2 + i * 0.3}s ease-in-out infinite`,
-            animationDelay: `${i * 0.4}s`
+            left: `${15 + i * 22}%`,
+            top: `${25 + (i % 2) * 30}%`,
+            animation: `twinkle ${2.5 + i * 0.5}s ease-in-out infinite`,
+            animationDelay: `${i * 0.5}s`,
+            willChange: 'opacity, transform'
           }} />
         ))}
 
-        {/* Single Driving Tractor */}
+        {/* Single Driving Tractor - Optimized */}
         <div style={{
           position: 'absolute',
           bottom: '18%',
           animation: 'tractorDrive 25s linear infinite',
           fontSize: 44,
-          filter: 'drop-shadow(0 5px 15px rgba(0,0,0,0.5))',
-          opacity: 0.9,
-          zIndex: 5
+          zIndex: 5,
+          willChange: 'left'
         }}>🚜</div>
-
-        {/* Pulse Rings around Sun */}
-        {[1, 2, 3].map(i => (
-          <div key={`ring-${i}`} style={{
-            position: 'absolute',
-            width: `${150 + i * 80}px`,
-            height: `${150 + i * 80}px`,
-            bottom: `calc(15% - ${i * 40}px)`,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            border: `1px solid rgba(251, 191, 36, ${0.3 - i * 0.08})`,
-            borderRadius: '50%',
-            animation: `pulseRing ${3 + i}s ease-out infinite`,
-            animationDelay: `${i * 0.5}s`
-          }} />
-        ))}
 
         {/* Main Content */}
         <div style={{
