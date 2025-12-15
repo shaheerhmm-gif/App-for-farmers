@@ -2882,50 +2882,10 @@ const OwnerApp = ({ onLogout }) => {
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [installPrompt, setInstallPrompt] = useState(null);
-  const [showInstallBanner, setShowInstallBanner] = useState(false);
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1500);
-
-    // PWA Install Prompt
-    const handleBeforeInstall = (e) => {
-      e.preventDefault();
-      setInstallPrompt(e);
-      // Show banner after a short delay
-      setTimeout(() => setShowInstallBanner(true), 2000);
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstall);
-
-    // Check if on mobile and not installed
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile && !isStandalone && !sessionStorage.getItem('installDismissed')) {
-      setTimeout(() => setShowInstallBanner(true), 3000);
-    }
-
-    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
   }, []);
-
-  const handleInstall = async () => {
-    if (installPrompt) {
-      installPrompt.prompt();
-      const result = await installPrompt.userChoice;
-      if (result.outcome === 'accepted') {
-        setShowInstallBanner(false);
-      }
-      setInstallPrompt(null);
-    } else {
-      // For iOS - show instructions
-      alert('Tap the Share button below, then "Add to Home Screen" to install the app!');
-    }
-  };
-
-  const dismissBanner = () => {
-    setShowInstallBanner(false);
-    sessionStorage.setItem('installDismissed', 'true');
-  };
 
   if (loading) {
     return (
@@ -2939,74 +2899,6 @@ function App() {
 
   return (
     <>
-      {/* PWA Install Banner */}
-      {showInstallBanner && (
-        <div style={{
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          background: 'linear-gradient(135deg, #1B4332 0%, #2D5A4A 100%)',
-          padding: '16px 20px',
-          zIndex: 9999,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 16,
-          boxShadow: '0 -4px 20px rgba(0,0,0,0.3)',
-          animation: 'slideUp 0.5s ease-out',
-          borderRadius: '20px 20px 0 0'
-        }}>
-          <div style={{
-            width: 50,
-            height: 50,
-            background: 'linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)',
-            borderRadius: 14,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 28,
-            flexShrink: 0
-          }}>🚜</div>
-          <div style={{ flex: 1 }}>
-            <p style={{ color: 'white', fontSize: 15, fontWeight: 700, margin: 0 }}>
-              Install KhetBandhu
-            </p>
-            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12, margin: '4px 0 0' }}>
-              Add to home screen for quick access
-            </p>
-          </div>
-          <button
-            onClick={handleInstall}
-            style={{
-              background: '#FCD34D',
-              border: 'none',
-              borderRadius: 12,
-              padding: '12px 20px',
-              fontSize: 14,
-              fontWeight: 700,
-              color: '#1B4332',
-              cursor: 'pointer',
-              flexShrink: 0
-            }}
-          >
-            Install
-          </button>
-          <button
-            onClick={dismissBanner}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: 'rgba(255,255,255,0.6)',
-              fontSize: 20,
-              cursor: 'pointer',
-              padding: '8px'
-            }}
-          >
-            ✕
-          </button>
-        </div>
-      )}
-
       {!user ? (
         <LoginPage onLogin={(type) => setUser(type)} />
       ) : user === 'customer' ? (
