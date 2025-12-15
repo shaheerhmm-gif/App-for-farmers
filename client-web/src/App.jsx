@@ -48,343 +48,221 @@ const LoginPage = ({ onLogin }) => {
     }
   };
 
-  // Scroll progress state for tractor explosion
-  const [scrollProgress, setScrollProgress] = React.useState(0);
-  const scrollContainerRef = React.useRef(null);
-
-  const handleScroll = (e) => {
-    const container = e.target;
-    const scrollTop = container.scrollTop;
-    const scrollHeight = container.scrollHeight - container.clientHeight;
-    const progress = Math.min(scrollTop / scrollHeight, 1);
-    setScrollProgress(progress);
-  };
-
   if (!userType) {
-    // Tractor parts configuration
-    const tractorParts = [
-      { emoji: '🛞', label: 'Front Wheel', x: -180, y: 60, rotate: -45, scale: 1.2 },
-      { emoji: '🛞', label: 'Back Wheel', x: 180, y: 60, rotate: 45, scale: 1.4 },
-      { emoji: '⚙️', label: 'Engine', x: 0, y: -120, rotate: 180, scale: 1.3 },
-      { emoji: '💨', label: 'Exhaust', x: -140, y: -100, rotate: -30, scale: 1.1 },
-      { emoji: '🪑', label: 'Seat', x: 120, y: -80, rotate: 20, scale: 1.2 },
-      { emoji: '🔧', label: 'Steering', x: -80, y: -40, rotate: -60, scale: 1.0 },
-      { emoji: '🔩', label: 'Bolts', x: 160, y: 20, rotate: 90, scale: 0.9 },
-      { emoji: '⛽', label: 'Fuel Tank', x: -160, y: 0, rotate: -15, scale: 1.1 },
-    ];
-
     return (
-      <div
-        ref={scrollContainerRef}
-        onScroll={handleScroll}
-        style={{
-          height: '100vh',
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          background: '#0a0a0a',
-          scrollBehavior: 'smooth'
-        }}
-      >
-        {/* Scrollable Content - 300vh to enable scroll */}
-        <div style={{ height: '300vh', position: 'relative' }}>
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        overflow: 'hidden',
+        background: '#0a0a0a'
+      }}>
+        {/* Background Grid */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `
+            radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.15) 0%, transparent 50%),
+            linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: '100% 100%, 100% 100%, 60px 60px, 60px 60px'
+        }} />
 
-          {/* Fixed/Sticky Viewport */}
+        {/* Floating Particles */}
+        {[...Array(15)].map((_, i) => (
+          <div key={i} style={{
+            position: 'absolute',
+            width: 4 + (i % 3) * 2,
+            height: 4 + (i % 3) * 2,
+            background: i % 2 === 0 ? '#22C55E' : '#FCD34D',
+            borderRadius: '50%',
+            left: `${(i * 6.5) % 100}%`,
+            top: `${(i * 8) % 100}%`,
+            opacity: 0.4,
+            boxShadow: `0 0 15px ${i % 2 === 0 ? '#22C55E' : '#FCD34D'}`,
+            animation: `float ${3 + i % 3}s ease-in-out infinite`,
+            animationDelay: `${i * 0.2}s`
+          }} />
+        ))}
+
+        {/* Main Content */}
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'relative',
+          zIndex: 10,
+          padding: '40px 24px'
+        }}>
+          {/* Giant Tractor */}
           <div style={{
-            position: 'sticky',
-            top: 0,
-            height: '100vh',
+            fontSize: 100,
+            marginBottom: 24,
+            filter: 'drop-shadow(0 0 40px rgba(34, 197, 94, 0.5))',
+            animation: 'float 4s ease-in-out infinite'
+          }}>🚜</div>
+
+          {/* Brand Name */}
+          <h1 style={{
+            fontSize: 'clamp(48px, 12vw, 80px)',
+            fontWeight: 900,
+            color: 'white',
+            margin: 0,
+            letterSpacing: '-0.03em',
+            textAlign: 'center'
+          }}>
+            Khet<span style={{ color: '#22C55E' }}>Bandhu</span>
+          </h1>
+
+          {/* Tagline */}
+          <p style={{
+            fontSize: 16,
+            color: 'rgba(255,255,255,0.5)',
+            marginTop: 16,
+            fontWeight: 500,
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase'
+          }}>
+            India's #1 Farm Equipment Marketplace
+          </p>
+
+          {/* Stats */}
+          <div style={{
+            display: 'flex',
+            gap: 40,
+            marginTop: 40
+          }}>
+            {[
+              { value: '₹47Cr+', label: 'GMV', color: '#22C55E' },
+              { value: '52K+', label: 'Farmers', color: '#FCD34D' },
+              { value: '4.9★', label: 'Rating', color: '#22C55E' }
+            ].map((stat, i) => (
+              <div key={i} style={{ textAlign: 'center' }}>
+                <p style={{
+                  fontSize: 28,
+                  fontWeight: 800,
+                  color: stat.color,
+                  margin: 0,
+                  textShadow: `0 0 20px ${stat.color}40`
+                }}>{stat.value}</p>
+                <p style={{
+                  fontSize: 11,
+                  color: 'rgba(255,255,255,0.4)',
+                  margin: '4px 0 0',
+                  fontWeight: 600,
+                  letterSpacing: '0.1em'
+                }}>{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Cards */}
+        <div style={{
+          padding: '0 24px 50px',
+          position: 'relative',
+          zIndex: 20
+        }}>
+          <div style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'hidden'
+            gap: 14,
+            maxWidth: 450,
+            margin: '0 auto'
           }}>
-
-            {/* Animated Background Grid */}
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              backgroundImage: `
-                radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)
-              `,
-              backgroundSize: '100% 100%, 100% 100%, 80px 80px, 80px 80px'
-            }} />
-
-            {/* Floating Particles */}
-            {[...Array(20)].map((_, i) => (
-              <div key={`p-${i}`} style={{
-                position: 'absolute',
-                width: 4 + (i % 3) * 2,
-                height: 4 + (i % 3) * 2,
-                background: i % 2 === 0 ? '#22C55E' : '#FCD34D',
-                borderRadius: '50%',
-                left: `${(i * 5) % 100}%`,
-                top: `${(i * 7) % 100}%`,
-                opacity: 0.3 + scrollProgress * 0.5,
-                boxShadow: `0 0 10px ${i % 2 === 0 ? '#22C55E' : '#FCD34D'}`,
-                transform: `translate(${Math.sin(i) * scrollProgress * 100}px, ${Math.cos(i) * scrollProgress * 50}px)`,
-                transition: 'transform 0.3s ease-out'
-              }} />
-            ))}
-
-            {/* Brand Name - Fades as you scroll */}
-            <h1 style={{
-              position: 'absolute',
-              top: '8%',
-              fontSize: 'clamp(32px, 8vw, 64px)',
-              fontWeight: 900,
-              color: 'white',
-              opacity: 1 - scrollProgress * 1.5,
-              transform: `translateY(${scrollProgress * -50}px)`,
-              transition: 'all 0.3s ease-out',
-              letterSpacing: '-0.03em',
-              textAlign: 'center'
-            }}>
-              Khet<span style={{ color: '#22C55E' }}>Bandhu</span>
-            </h1>
-
-            {/* Scroll Indicator */}
-            <div style={{
-              position: 'absolute',
-              bottom: '10%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 8,
-              opacity: 1 - scrollProgress * 3,
-              transition: 'opacity 0.3s ease-out'
-            }}>
-              <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: 14, letterSpacing: '0.1em' }}>
-                SCROLL TO EXPLORE
-              </span>
+            {/* Farmer Card */}
+            <button
+              onClick={() => setUserType('customer')}
+              style={{
+                width: '100%',
+                background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.12) 0%, rgba(34, 197, 94, 0.04) 100%)',
+                border: '1px solid rgba(34, 197, 94, 0.3)',
+                borderRadius: 16,
+                padding: '22px 24px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 16,
+                cursor: 'pointer',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseOver={e => {
+                e.currentTarget.style.transform = 'translateY(-3px)';
+                e.currentTarget.style.boxShadow = '0 15px 40px rgba(34, 197, 94, 0.2)';
+              }}
+              onMouseOut={e => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
               <div style={{
-                width: 24,
-                height: 40,
-                border: '2px solid rgba(255,255,255,0.3)',
-                borderRadius: 12,
-                position: 'relative'
-              }}>
-                <div style={{
-                  position: 'absolute',
-                  top: 6,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: 4,
-                  height: 8,
-                  background: '#22C55E',
-                  borderRadius: 2,
-                  animation: 'scrollBounce 1.5s ease-in-out infinite'
-                }} />
+                width: 56,
+                height: 56,
+                background: 'linear-gradient(135deg, #22C55E, #16A34A)',
+                borderRadius: 14,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 28
+              }}>👨‍🌾</div>
+              <div style={{ flex: 1, textAlign: 'left' }}>
+                <p style={{ color: '#22C55E', fontSize: 11, fontWeight: 700, margin: 0, letterSpacing: '0.1em' }}>FARMER</p>
+                <p style={{ color: 'white', fontSize: 18, fontWeight: 700, margin: '2px 0 0' }}>Book Equipment</p>
               </div>
-            </div>
+              <span style={{ color: '#22C55E', fontSize: 22 }}>→</span>
+            </button>
 
-            {/* TRACTOR PARTS - Explode based on scroll */}
-            <div style={{
-              position: 'relative',
-              width: 400,
-              height: 400,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              {/* Central Tractor - Fades out */}
+            {/* Owner Card */}
+            <button
+              onClick={() => setUserType('owner')}
+              style={{
+                width: '100%',
+                background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.03) 100%)',
+                border: '1px solid rgba(251, 191, 36, 0.3)',
+                borderRadius: 16,
+                padding: '22px 24px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 16,
+                cursor: 'pointer',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseOver={e => {
+                e.currentTarget.style.transform = 'translateY(-3px)';
+                e.currentTarget.style.boxShadow = '0 15px 40px rgba(251, 191, 36, 0.15)';
+              }}
+              onMouseOut={e => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
               <div style={{
-                fontSize: 120,
-                position: 'absolute',
-                opacity: 1 - scrollProgress * 2,
-                transform: `scale(${1 - scrollProgress * 0.5})`,
-                filter: `blur(${scrollProgress * 5}px)`,
-                transition: 'all 0.3s ease-out'
+                width: 56,
+                height: 56,
+                background: 'linear-gradient(135deg, #FCD34D, #F59E0B)',
+                borderRadius: 14,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 28
               }}>🚜</div>
-
-              {/* Exploding Parts */}
-              {tractorParts.map((part, i) => (
-                <div
-                  key={i}
-                  style={{
-                    position: 'absolute',
-                    fontSize: 50 * part.scale,
-                    opacity: scrollProgress > 0.1 ? Math.min(scrollProgress * 2, 1) : 0,
-                    transform: `
-                      translate(${part.x * scrollProgress * 1.5}px, ${part.y * scrollProgress * 1.5}px)
-                      rotate(${part.rotate * scrollProgress}deg)
-                      scale(${0.5 + scrollProgress * 0.5})
-                    `,
-                    filter: `drop-shadow(0 0 ${20 + scrollProgress * 20}px rgba(34, 197, 94, ${0.3 + scrollProgress * 0.4}))`,
-                    transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                    zIndex: 10 + i
-                  }}
-                >
-                  {part.emoji}
-                  {/* Part Label */}
-                  <span style={{
-                    position: 'absolute',
-                    bottom: -24,
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    fontSize: 10,
-                    color: 'rgba(255,255,255,0.6)',
-                    whiteSpace: 'nowrap',
-                    opacity: scrollProgress > 0.4 ? 1 : 0,
-                    transition: 'opacity 0.3s ease-out',
-                    letterSpacing: '0.05em',
-                    textTransform: 'uppercase'
-                  }}>
-                    {part.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Progress Text */}
-            <div style={{
-              position: 'absolute',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              right: 40,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-end',
-              gap: 8,
-              opacity: scrollProgress > 0.2 ? 1 : 0,
-              transition: 'opacity 0.5s ease-out'
-            }}>
-              <span style={{
-                color: '#22C55E',
-                fontSize: 48,
-                fontWeight: 900,
-                textShadow: '0 0 30px rgba(34, 197, 94, 0.5)'
-              }}>
-                {Math.round(scrollProgress * 100)}%
-              </span>
-              <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12, letterSpacing: '0.15em' }}>
-                EXPLODED
-              </span>
-            </div>
-
-            {/* LOGIN CARDS - Appear at 70%+ scroll */}
-            <div style={{
-              position: 'absolute',
-              bottom: 40,
-              left: '50%',
-              width: '100%',
-              maxWidth: 500,
-              padding: '0 24px',
-              opacity: scrollProgress > 0.6 ? (scrollProgress - 0.6) * 2.5 : 0,
-              transform: `translateX(-50%) translateY(${scrollProgress > 0.6 ? 0 : 60}px)`,
-              transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-              pointerEvents: scrollProgress > 0.7 ? 'auto' : 'none'
-            }}>
-              <p style={{
-                textAlign: 'center',
-                color: 'rgba(255,255,255,0.6)',
-                fontSize: 14,
-                marginBottom: 20,
-                letterSpacing: '0.1em'
-              }}>
-                CHOOSE YOUR ROLE
-              </p>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {/* Farmer Card */}
-                <button
-                  onClick={() => setUserType('customer')}
-                  style={{
-                    width: '100%',
-                    background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.05) 100%)',
-                    backdropFilter: 'blur(20px)',
-                    WebkitBackdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(34, 197, 94, 0.4)',
-                    borderRadius: 16,
-                    padding: '20px 24px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 16,
-                    cursor: 'pointer',
-                    transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
-                  }}
-                  onMouseOver={e => {
-                    e.currentTarget.style.transform = 'translateY(-4px) scale(1.02)';
-                    e.currentTarget.style.boxShadow = '0 20px 60px rgba(34, 197, 94, 0.3)';
-                  }}
-                  onMouseOut={e => {
-                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                >
-                  <div style={{
-                    width: 56,
-                    height: 56,
-                    background: 'linear-gradient(135deg, #22C55E, #16A34A)',
-                    borderRadius: 14,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 28,
-                    boxShadow: '0 8px 24px rgba(34, 197, 94, 0.4)'
-                  }}>👨‍🌾</div>
-                  <div style={{ flex: 1, textAlign: 'left' }}>
-                    <p style={{ color: '#22C55E', fontSize: 11, fontWeight: 700, margin: 0, letterSpacing: '0.1em' }}>FARMER</p>
-                    <p style={{ color: 'white', fontSize: 18, fontWeight: 700, margin: '2px 0 0' }}>Book Equipment</p>
-                  </div>
-                  <span style={{ color: '#22C55E', fontSize: 24 }}>→</span>
-                </button>
-
-                {/* Owner Card */}
-                <button
-                  onClick={() => setUserType('owner')}
-                  style={{
-                    width: '100%',
-                    background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(251, 191, 36, 0.04) 100%)',
-                    backdropFilter: 'blur(20px)',
-                    WebkitBackdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(251, 191, 36, 0.35)',
-                    borderRadius: 16,
-                    padding: '20px 24px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 16,
-                    cursor: 'pointer',
-                    transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
-                  }}
-                  onMouseOver={e => {
-                    e.currentTarget.style.transform = 'translateY(-4px) scale(1.02)';
-                    e.currentTarget.style.boxShadow = '0 20px 60px rgba(251, 191, 36, 0.25)';
-                  }}
-                  onMouseOut={e => {
-                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                >
-                  <div style={{
-                    width: 56,
-                    height: 56,
-                    background: 'linear-gradient(135deg, #FCD34D, #F59E0B)',
-                    borderRadius: 14,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 28,
-                    boxShadow: '0 8px 24px rgba(251, 191, 36, 0.4)'
-                  }}>🚜</div>
-                  <div style={{ flex: 1, textAlign: 'left' }}>
-                    <p style={{ color: '#FCD34D', fontSize: 11, fontWeight: 700, margin: 0, letterSpacing: '0.1em' }}>OWNER</p>
-                    <p style={{ color: 'white', fontSize: 18, fontWeight: 700, margin: '2px 0 0' }}>Earn Money</p>
-                  </div>
-                  <span style={{ color: '#FCD34D', fontSize: 24 }}>→</span>
-                </button>
+              <div style={{ flex: 1, textAlign: 'left' }}>
+                <p style={{ color: '#FCD34D', fontSize: 11, fontWeight: 700, margin: 0, letterSpacing: '0.1em' }}>OWNER</p>
+                <p style={{ color: 'white', fontSize: 18, fontWeight: 700, margin: '2px 0 0' }}>Earn Money</p>
               </div>
-            </div>
+              <span style={{ color: '#FCD34D', fontSize: 22 }}>→</span>
+            </button>
           </div>
         </div>
 
         <style>{`
-          @keyframes scrollBounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
-            50% { transform: translateX(-50%) translateY(10px); opacity: 0.5; }
+          @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
           }
         `}</style>
       </div>
