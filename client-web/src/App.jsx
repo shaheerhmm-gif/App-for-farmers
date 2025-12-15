@@ -242,69 +242,91 @@ const ScrollExplodeLogin = ({ onSelectRole }) => {
             </div>
           </div>
 
-          {/* Login options - minimal cards */}
+          {/* Login options - POP cards */}
           <div style={{
             position: 'absolute',
-            bottom: 80,
+            bottom: 60,
             left: '50%',
             transform: `translateX(-50%)`,
             width: '100%',
-            maxWidth: 400,
+            maxWidth: 480,
             padding: '0 24px',
             boxSizing: 'border-box',
             opacity: scrollProgress > 0.65 ? Math.min((scrollProgress - 0.65) * 3, 1) : 0,
             pointerEvents: scrollProgress > 0.75 ? 'auto' : 'none',
             transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
           }}>
-            <div style={{ display: 'flex', gap: 12 }}>
+            <p style={{
+              textAlign: 'center',
+              color: 'rgba(255,255,255,0.35)',
+              fontSize: 10,
+              letterSpacing: '0.25em',
+              marginBottom: 20,
+              fontWeight: 500
+            }}>
+              SELECT YOUR ROLE
+            </p>
+            <div style={{ display: 'flex', gap: 16 }}>
               <button
                 onClick={() => onSelectRole('customer')}
                 style={{
                   flex: 1,
-                  background: 'transparent',
-                  border: '1px solid rgba(34, 197, 94, 0.4)',
-                  borderRadius: 8,
-                  padding: '20px 16px',
+                  background: 'rgba(34, 197, 94, 0.08)',
+                  border: '1px solid rgba(34, 197, 94, 0.5)',
+                  borderRadius: 12,
+                  padding: '28px 20px',
                   cursor: 'pointer',
-                  transition: 'all 0.25s ease',
-                  textAlign: 'center'
+                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                  textAlign: 'center',
+                  boxShadow: '0 0 30px rgba(34, 197, 94, 0.1)'
                 }}
                 onMouseOver={e => {
-                  e.currentTarget.style.background = 'rgba(34, 197, 94, 0.08)';
+                  e.currentTarget.style.background = 'rgba(34, 197, 94, 0.15)';
                   e.currentTarget.style.borderColor = '#22C55E';
+                  e.currentTarget.style.transform = 'translateY(-6px) scale(1.02)';
+                  e.currentTarget.style.boxShadow = '0 15px 40px rgba(34, 197, 94, 0.2)';
                 }}
                 onMouseOut={e => {
-                  e.currentTarget.style.background = 'transparent';
-                  e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+                  e.currentTarget.style.background = 'rgba(34, 197, 94, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.boxShadow = '0 0 30px rgba(34, 197, 94, 0.1)';
                 }}
               >
-                <p style={{ color: '#22C55E', fontSize: 14, fontWeight: 600, margin: 0, letterSpacing: '0.05em' }}>FARMER</p>
-                <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 11, margin: '8px 0 0' }}>Book Equipment</p>
+                <div style={{ fontSize: 36, marginBottom: 12 }}>👨‍🌾</div>
+                <p style={{ color: '#22C55E', fontSize: 16, fontWeight: 700, margin: 0, letterSpacing: '0.05em' }}>FARMER</p>
+                <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 12, margin: '8px 0 0' }}>Book Equipment</p>
               </button>
 
               <button
                 onClick={() => onSelectRole('owner')}
                 style={{
                   flex: 1,
-                  background: 'transparent',
-                  border: '1px solid rgba(255,255,255,0.15)',
-                  borderRadius: 8,
-                  padding: '20px 16px',
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: 12,
+                  padding: '28px 20px',
                   cursor: 'pointer',
-                  transition: 'all 0.25s ease',
-                  textAlign: 'center'
+                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                  textAlign: 'center',
+                  boxShadow: '0 0 30px rgba(255,255,255,0.03)'
                 }}
                 onMouseOver={e => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)';
+                  e.currentTarget.style.transform = 'translateY(-6px) scale(1.02)';
+                  e.currentTarget.style.boxShadow = '0 15px 40px rgba(255,255,255,0.08)';
                 }}
                 onMouseOut={e => {
-                  e.currentTarget.style.background = 'transparent';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.boxShadow = '0 0 30px rgba(255,255,255,0.03)';
                 }}
               >
-                <p style={{ color: 'white', fontSize: 14, fontWeight: 600, margin: 0, letterSpacing: '0.05em' }}>OWNER</p>
-                <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 11, margin: '8px 0 0' }}>Earn Money</p>
+                <div style={{ fontSize: 36, marginBottom: 12 }}>🚜</div>
+                <p style={{ color: 'white', fontSize: 16, fontWeight: 700, margin: 0, letterSpacing: '0.05em' }}>OWNER</p>
+                <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 12, margin: '8px 0 0' }}>Earn Money</p>
               </button>
             </div>
           </div>
