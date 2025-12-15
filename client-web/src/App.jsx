@@ -270,7 +270,6 @@ const LoginPage = ({ onLogin }) => {
               position: 'absolute',
               bottom: 40,
               left: '50%',
-              transform: 'translateX(-50%)',
               width: '100%',
               maxWidth: 500,
               padding: '0 24px',
