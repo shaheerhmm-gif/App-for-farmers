@@ -56,29 +56,62 @@ const LoginPage = ({ onLogin }) => {
         flexDirection: 'column',
         position: 'relative',
         overflow: 'hidden',
-        background: 'linear-gradient(165deg, #0D2818 0%, #1B4332 40%, #2D5A4A 100%)'
+        background: '#050D09'
       }}>
-        {/* Ambient Light Effects */}
+        {/* Animated Aurora Background */}
         <div style={{
           position: 'absolute',
-          top: '-20%',
-          right: '-10%',
-          width: '60%',
-          height: '60%',
-          background: 'radial-gradient(circle, rgba(116, 168, 146, 0.15) 0%, transparent 70%)',
-          borderRadius: '50%',
-          filter: 'blur(40px)',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `
+            radial-gradient(ellipse 80% 60% at 50% 0%, rgba(22, 78, 56, 0.5) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 40% at 80% 20%, rgba(45, 90, 74, 0.4) 0%, transparent 40%),
+            radial-gradient(ellipse 50% 50% at 20% 80%, rgba(16, 69, 46, 0.3) 0%, transparent 50%),
+            linear-gradient(180deg, #050D09 0%, #0A1F14 50%, #0D2818 100%)
+          `,
+          animation: 'auroraShift 15s ease-in-out infinite alternate'
+        }} />
+
+        {/* Floating Particles */}
+        {[...Array(20)].map((_, i) => (
+          <div key={i} style={{
+            position: 'absolute',
+            width: Math.random() * 4 + 2,
+            height: Math.random() * 4 + 2,
+            background: `rgba(134, 239, 172, ${Math.random() * 0.3 + 0.1})`,
+            borderRadius: '50%',
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animation: `float${i % 3} ${8 + Math.random() * 8}s ease-in-out infinite`,
+            animationDelay: `${Math.random() * 5}s`,
+            filter: 'blur(1px)',
+            boxShadow: '0 0 10px rgba(134, 239, 172, 0.3)'
+          }} />
+        ))}
+
+        {/* Mesh Gradient Orbs */}
+        <div style={{
+          position: 'absolute',
+          width: '600px',
+          height: '600px',
+          top: '-200px',
+          right: '-200px',
+          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 60%)',
+          filter: 'blur(100px)',
+          animation: 'orbFloat 20s ease-in-out infinite',
           pointerEvents: 'none'
         }} />
         <div style={{
           position: 'absolute',
-          bottom: '10%',
-          left: '-20%',
-          width: '50%',
-          height: '50%',
-          background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%)',
-          borderRadius: '50%',
-          filter: 'blur(30px)',
+          width: '500px',
+          height: '500px',
+          bottom: '-100px',
+          left: '-150px',
+          background: 'radial-gradient(circle, rgba(45, 90, 74, 0.25) 0%, transparent 60%)',
+          filter: 'blur(80px)',
+          animation: 'orbFloat 25s ease-in-out infinite reverse',
           pointerEvents: 'none'
         }} />
 
@@ -89,217 +122,391 @@ const LoginPage = ({ onLogin }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '48px 24px 32px',
+          padding: '48px 24px 24px',
           textAlign: 'center',
           position: 'relative',
           zIndex: 10
         }}>
-          {/* Animated Logo */}
+          {/* 3D Floating Tractor */}
           <div style={{
-            fontSize: 72,
-            marginBottom: 20,
-            animation: 'float 4s ease-in-out infinite',
-            filter: 'drop-shadow(0 12px 32px rgba(0,0,0,0.3))'
+            position: 'relative',
+            marginBottom: 24,
+            perspective: '1000px'
           }}>
-            🚜
+            <div style={{
+              fontSize: 100,
+              animation: 'heroFloat 6s ease-in-out infinite, tractorTilt 8s ease-in-out infinite',
+              filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.4)) drop-shadow(0 10px 20px rgba(16, 185, 129, 0.2))',
+              transformStyle: 'preserve-3d'
+            }}>
+              🚜
+            </div>
+            {/* Glow ring */}
+            <div style={{
+              position: 'absolute',
+              bottom: '-20px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '120px',
+              height: '30px',
+              background: 'radial-gradient(ellipse, rgba(16, 185, 129, 0.3) 0%, transparent 70%)',
+              borderRadius: '50%',
+              animation: 'glowPulse 3s ease-in-out infinite',
+              filter: 'blur(8px)'
+            }} />
           </div>
 
+          {/* Brand Name with reveal animation */}
           <h1 style={{
-            fontSize: 44,
-            fontWeight: 800,
+            fontSize: 56,
+            fontWeight: 900,
             fontFamily: "'Instrument Serif', Georgia, serif",
-            color: 'white',
+            background: 'linear-gradient(135deg, #FFFFFF 0%, #86EFAC 50%, #4ADE80 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
             margin: 0,
-            letterSpacing: '-0.03em',
-            textShadow: '0 4px 24px rgba(0,0,0,0.4)',
-            lineHeight: 1.1
+            letterSpacing: '-0.04em',
+            animation: 'textReveal 1s ease-out 0.3s backwards',
+            textShadow: '0 0 80px rgba(134, 239, 172, 0.5)'
           }}>
             KhetBandhu
           </h1>
 
+          {/* Hindi subtitle with typewriter effect */}
           <p style={{
-            fontSize: 18,
-            color: 'rgba(255,255,255,0.85)',
-            marginTop: 10,
+            fontSize: 22,
+            color: 'rgba(134, 239, 172, 0.9)',
+            marginTop: 8,
             fontWeight: 500,
-            letterSpacing: '0.02em'
+            letterSpacing: '0.15em',
+            animation: 'fadeInUp 0.8s ease-out 0.5s backwards'
           }}>
             खेत बंधु
           </p>
 
-          <p style={{
-            fontSize: 14,
-            color: 'rgba(255,255,255,0.6)',
-            marginTop: 8,
-            maxWidth: 260,
-            lineHeight: 1.5
+          {/* Tagline with animated underline */}
+          <div style={{
+            position: 'relative',
+            marginTop: 16,
+            animation: 'fadeInUp 0.8s ease-out 0.7s backwards'
           }}>
-            Connecting Farmers with Equipment Owners
-          </p>
+            <p style={{
+              fontSize: 15,
+              color: 'rgba(255,255,255,0.6)',
+              maxWidth: 280,
+              lineHeight: 1.6,
+              margin: 0
+            }}>
+              India's #1 Farm Equipment Marketplace
+            </p>
+            <div style={{
+              width: '60px',
+              height: '2px',
+              background: 'linear-gradient(90deg, transparent, #10B981, transparent)',
+              margin: '16px auto 0',
+              animation: 'lineExpand 1s ease-out 1s backwards'
+            }} />
+          </div>
 
-          {/* Feature Pills */}
+          {/* Animated Stats */}
           <div style={{
             display: 'flex',
-            gap: 10,
-            marginTop: 28,
-            flexWrap: 'wrap',
-            justifyContent: 'center'
+            gap: 24,
+            marginTop: 32,
+            animation: 'fadeInUp 0.8s ease-out 0.9s backwards'
           }}>
-            {['🚜 Book Tractors', '⛏️ JCB & More', '⚡ Instant'].map((f, i) => (
-              <span key={i} style={{
-                background: 'rgba(255,255,255,0.1)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                padding: '10px 18px',
-                borderRadius: 24,
-                fontSize: 13,
-                color: 'rgba(255,255,255,0.9)',
-                fontWeight: 500,
-                border: '1px solid rgba(255,255,255,0.1)',
-                animation: `slideUp 0.5s ease-out ${0.3 + i * 0.1}s backwards`
-              }}>{f}</span>
+            {[
+              { value: '50K+', label: 'Farmers' },
+              { value: '5K+', label: 'Machines' },
+              { value: '₹10Cr+', label: 'Transactions' }
+            ].map((stat, i) => (
+              <div key={i} style={{
+                textAlign: 'center',
+                animation: `countUp 0.6s ease-out ${1 + i * 0.2}s backwards`
+              }}>
+                <p style={{
+                  fontSize: 24,
+                  fontWeight: 800,
+                  color: '#4ADE80',
+                  margin: 0,
+                  fontVariantNumeric: 'tabular-nums'
+                }}>{stat.value}</p>
+                <p style={{
+                  fontSize: 11,
+                  color: 'rgba(255,255,255,0.5)',
+                  margin: '4px 0 0',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em'
+                }}>{stat.label}</p>
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Selection Cards Panel */}
+        {/* Selection Cards - Premium Glass Panel */}
         <div style={{
-          background: 'linear-gradient(180deg, rgba(250,250,248,0.97) 0%, #FAFAF8 100%)',
-          borderRadius: '36px 36px 0 0',
-          padding: '32px 24px 44px',
-          boxShadow: '0 -12px 48px rgba(0,0,0,0.15)',
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
+          backdropFilter: 'blur(40px)',
+          WebkitBackdropFilter: 'blur(40px)',
+          borderRadius: '40px 40px 0 0',
+          padding: '36px 24px 48px',
+          boxShadow: '0 -20px 80px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
           position: 'relative',
-          zIndex: 10
+          zIndex: 10,
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderBottom: 'none',
+          animation: 'slideUpPanel 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards'
         }}>
+          {/* Handle bar */}
+          <div style={{
+            width: 40,
+            height: 4,
+            background: 'rgba(255,255,255,0.2)',
+            borderRadius: 2,
+            margin: '0 auto 28px'
+          }} />
+
           <p style={{
-            color: '#64748B',
-            fontSize: 13,
+            color: 'rgba(255,255,255,0.5)',
+            fontSize: 12,
             textAlign: 'center',
             marginBottom: 24,
-            fontWeight: 500,
-            letterSpacing: '0.04em',
+            fontWeight: 600,
+            letterSpacing: '0.15em',
             textTransform: 'uppercase'
           }}>
-            Choose your account type
+            Get Started
           </p>
 
-          {/* Farmer Button - Primary CTA */}
+          {/* Farmer Button - Hero CTA */}
           <button
             onClick={() => setUserType('customer')}
             style={{
               width: '100%',
-              background: 'linear-gradient(135deg, #1B4332 0%, #2D5A4A 60%, #3D6B5A 100%)',
+              background: 'linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%)',
               border: 'none',
-              borderRadius: 22,
-              padding: '22px 26px',
+              borderRadius: 24,
+              padding: '24px 28px',
               display: 'flex',
               alignItems: 'center',
               gap: 18,
               marginBottom: 14,
               cursor: 'pointer',
-              boxShadow: '0 8px 28px rgba(27,67,50,0.35), 0 2px 8px rgba(27,67,50,0.2), inset 0 1px 0 rgba(255,255,255,0.1)',
-              transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+              boxShadow: `
+                0 20px 40px rgba(16, 185, 129, 0.3),
+                0 8px 16px rgba(16, 185, 129, 0.2),
+                inset 0 1px 0 rgba(255,255,255,0.25),
+                inset 0 -2px 0 rgba(0,0,0,0.1)
+              `,
+              transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
               position: 'relative',
               overflow: 'hidden'
             }}
             onMouseOver={e => {
-              e.currentTarget.style.transform = 'translateY(-3px) scale(1.01)';
-              e.currentTarget.style.boxShadow = '0 14px 40px rgba(27,67,50,0.4), 0 4px 12px rgba(27,67,50,0.25)';
+              e.currentTarget.style.transform = 'translateY(-4px) scale(1.02)';
+              e.currentTarget.style.boxShadow = `
+                0 30px 60px rgba(16, 185, 129, 0.4),
+                0 12px 24px rgba(16, 185, 129, 0.3),
+                inset 0 1px 0 rgba(255,255,255,0.3)
+              `;
             }}
             onMouseOut={e => {
               e.currentTarget.style.transform = 'translateY(0) scale(1)';
-              e.currentTarget.style.boxShadow = '0 8px 28px rgba(27,67,50,0.35), 0 2px 8px rgba(27,67,50,0.2)';
+              e.currentTarget.style.boxShadow = `
+                0 20px 40px rgba(16, 185, 129, 0.3),
+                0 8px 16px rgba(16, 185, 129, 0.2),
+                inset 0 1px 0 rgba(255,255,255,0.25)
+              `;
             }}
           >
+            {/* Shimmer effect */}
             <div style={{
-              width: 58,
-              height: 58,
-              background: 'rgba(255,255,255,0.15)',
+              position: 'absolute',
+              top: 0,
+              left: '-100%',
+              width: '100%',
+              height: '100%',
+              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+              animation: 'shimmerBtn 3s ease-in-out infinite'
+            }} />
+
+            <div style={{
+              width: 64,
+              height: 64,
+              background: 'rgba(255,255,255,0.2)',
               backdropFilter: 'blur(8px)',
-              borderRadius: 18,
+              borderRadius: 20,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 30,
-              boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.2)'
+              fontSize: 36,
+              boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.3)'
             }}>👨‍🌾</div>
             <div style={{ flex: 1, textAlign: 'left' }}>
-              <p style={{ color: 'white', fontSize: 19, fontWeight: 700, margin: 0, letterSpacing: '-0.01em' }}>I'm a Farmer</p>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, margin: '5px 0 0', fontWeight: 400 }}>Book equipment for my fields</p>
+              <p style={{ color: 'white', fontSize: 20, fontWeight: 700, margin: 0, letterSpacing: '-0.01em' }}>I'm a Farmer</p>
+              <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13, margin: '6px 0 0', fontWeight: 400 }}>Book tractors, JCB & more</p>
             </div>
-            <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: 22, transition: 'transform 0.3s ease' }}>→</span>
+            <span style={{
+              color: 'white',
+              fontSize: 24,
+              background: 'rgba(255,255,255,0.2)',
+              width: 44,
+              height: 44,
+              borderRadius: 14,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>→</span>
           </button>
 
-          {/* Owner Button - Secondary */}
+          {/* Owner Button - Secondary with border glow */}
           <button
             onClick={() => setUserType('owner')}
             style={{
               width: '100%',
-              background: 'white',
-              border: '1.5px solid #E2E8F0',
-              borderRadius: 22,
-              padding: '22px 26px',
+              background: 'rgba(255,255,255,0.05)',
+              border: '1.5px solid rgba(255,255,255,0.15)',
+              borderRadius: 24,
+              padding: '24px 28px',
               display: 'flex',
               alignItems: 'center',
               gap: 18,
               cursor: 'pointer',
-              transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+              transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.2)'
             }}
             onMouseOver={e => {
               e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.borderColor = '#74A892';
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+              e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.5)';
+              e.currentTarget.style.background = 'rgba(16, 185, 129, 0.1)';
+              e.currentTarget.style.boxShadow = '0 8px 32px rgba(16, 185, 129, 0.2), 0 0 0 1px rgba(16, 185, 129, 0.3)';
             }}
             onMouseOut={e => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.borderColor = '#E2E8F0';
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+              e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.2)';
             }}
           >
             <div style={{
-              width: 58,
-              height: 58,
-              background: 'linear-gradient(135deg, #F1F8F2 0%, #E8F5E9 100%)',
-              borderRadius: 18,
+              width: 64,
+              height: 64,
+              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.1) 100%)',
+              borderRadius: 20,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 30,
-              border: '1px solid rgba(116,168,146,0.15)'
+              fontSize: 36,
+              border: '1px solid rgba(16, 185, 129, 0.2)'
             }}>🚜</div>
             <div style={{ flex: 1, textAlign: 'left' }}>
-              <p style={{ color: '#0F172A', fontSize: 19, fontWeight: 700, margin: 0, letterSpacing: '-0.01em' }}>I'm an Owner</p>
-              <p style={{ color: '#64748B', fontSize: 13, margin: '5px 0 0', fontWeight: 400 }}>Manage my fleet & earn money</p>
+              <p style={{ color: 'white', fontSize: 20, fontWeight: 700, margin: 0, letterSpacing: '-0.01em' }}>I'm an Owner</p>
+              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, margin: '6px 0 0', fontWeight: 400 }}>Rent out my equipment</p>
             </div>
-            <span style={{ color: '#94A3B8', fontSize: 22, transition: 'transform 0.3s ease' }}>→</span>
+            <span style={{
+              color: 'rgba(255,255,255,0.5)',
+              fontSize: 24,
+              width: 44,
+              height: 44,
+              borderRadius: 14,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '1px solid rgba(255,255,255,0.1)'
+            }}>→</span>
           </button>
 
-          {/* Trust Indicators */}
+          {/* Trust badges */}
           <div style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: 28,
-            marginTop: 32,
-            color: '#94A3B8',
-            fontSize: 12,
-            fontWeight: 500
+            gap: 32,
+            marginTop: 36,
+            animation: 'fadeInUp 0.8s ease-out 1.2s backwards'
           }}>
-            <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ fontSize: 14 }}>🔒</span> Secure</span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ fontSize: 14 }}>⚡</span> Fast</span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ fontSize: 14 }}>💯</span> Free</span>
+            {[
+              { icon: '🔒', label: 'Secure' },
+              { icon: '⚡', label: 'Instant' },
+              { icon: '🏆', label: 'Trusted' }
+            ].map((badge, i) => (
+              <span key={i} style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                color: 'rgba(255,255,255,0.4)',
+                fontSize: 12,
+                fontWeight: 500
+              }}>
+                <span style={{ fontSize: 16 }}>{badge.icon}</span>
+                {badge.label}
+              </span>
+            ))}
           </div>
         </div>
 
         <style>{`
-          @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            25% { transform: translateY(-8px) rotate(-2deg); }
-            75% { transform: translateY(-4px) rotate(1deg); }
+          @keyframes auroraShift {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); }
           }
-          @keyframes slideUp {
-            from { opacity: 0; transform: translateY(16px); }
+          @keyframes float0 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10px, -20px) rotate(5deg); }
+            50% { transform: translate(-5px, -40px) rotate(-3deg); }
+            75% { transform: translate(-15px, -20px) rotate(2deg); }
+          }
+          @keyframes float1 {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(-15px, -30px); }
+            66% { transform: translate(10px, -15px); }
+          }
+          @keyframes float2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -35px); }
+          }
+          @keyframes heroFloat {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            25% { transform: translateY(-15px) rotateY(5deg); }
+            50% { transform: translateY(-5px) rotateY(-5deg); }
+            75% { transform: translateY(-20px) rotateY(3deg); }
+          }
+          @keyframes tractorTilt {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+          }
+          @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, 20px) scale(1.1); }
+          }
+          @keyframes glowPulse {
+            0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.8; transform: translateX(-50%) scale(1.2); }
+          }
+          @keyframes textReveal {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+          }
+          @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes lineExpand {
+            from { width: 0; opacity: 0; }
+            to { width: 60px; opacity: 1; }
+          }
+          @keyframes countUp {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+          }
+          @keyframes slideUpPanel {
+            from { opacity: 0; transform: translateY(100px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes shimmerBtn {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
           }
         `}</style>
       </div>
