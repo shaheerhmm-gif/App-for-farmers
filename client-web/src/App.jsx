@@ -24,10 +24,9 @@ const StarRating = ({ rating, onRate, size = 24 }) => (
   </div>
 );
 
-// ============ SCROLL EXPLODE LOGIN - PREMIUM EDITION ============
+// ============ SCROLL EXPLODE LOGIN - PROFESSIONAL ============
 const ScrollExplodeLogin = ({ onSelectRole }) => {
   const [scrollProgress, setScrollProgress] = useState(0);
-  const containerRef = useRef(null);
 
   const handleScroll = (e) => {
     const container = e.target;
@@ -37,31 +36,29 @@ const ScrollExplodeLogin = ({ onSelectRole }) => {
     setScrollProgress(progress);
   };
 
-  // Premium geometric shapes for explosion
-  const explodeParts = [
-    { shape: 'circle', size: 60, x: -180, y: -80, rotate: 0, color: '#D4AF37' },
-    { shape: 'circle', size: 50, x: 180, y: -60, rotate: 0, color: '#C9A227' },
-    { shape: 'rect', size: 45, x: -140, y: 100, rotate: -30, color: '#1E3A5F' },
-    { shape: 'rect', size: 55, x: 150, y: 90, rotate: 45, color: '#2C5282' },
-    { shape: 'diamond', size: 40, x: 0, y: -140, rotate: 45, color: '#D4AF37' },
-    { shape: 'ring', size: 70, x: -100, y: 20, rotate: 0, color: '#C9A227' },
-    { shape: 'ring', size: 55, x: 120, y: -20, rotate: 0, color: '#1E3A5F' },
-    { shape: 'line', size: 80, x: -60, y: 120, rotate: -20, color: '#D4AF37' },
+  // Clean geometric pieces
+  const pieces = [
+    { x: -120, y: -100, size: 50, delay: 0 },
+    { x: 120, y: -100, size: 50, delay: 0.05 },
+    { x: -150, y: 0, size: 40, delay: 0.1 },
+    { x: 150, y: 0, size: 40, delay: 0.1 },
+    { x: -120, y: 100, size: 45, delay: 0.15 },
+    { x: 120, y: 100, size: 45, delay: 0.15 },
+    { x: 0, y: -130, size: 35, delay: 0.2 },
+    { x: 0, y: 130, size: 35, delay: 0.2 },
   ];
 
   return (
     <div
-      ref={containerRef}
       onScroll={handleScroll}
       style={{
         height: '100vh',
         overflowY: 'auto',
         overflowX: 'hidden',
-        background: 'linear-gradient(135deg, #0B1426 0%, #0D1B2A 50%, #1B263B 100%)',
-        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+        background: 'linear-gradient(180deg, #0C0C0C 0%, #111111 100%)'
       }}
     >
-      <div style={{ height: '280vh', position: 'relative' }}>
+      <div style={{ height: '300vh' }}>
         <div style={{
           position: 'sticky',
           top: 0,
@@ -69,357 +66,247 @@ const ScrollExplodeLogin = ({ onSelectRole }) => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden'
+          justifyContent: 'center'
         }}>
-          {/* Animated grid background */}
+
+          {/* Subtle grid */}
           <div style={{
             position: 'absolute',
             inset: 0,
-            backgroundImage: `
-              linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px',
-            opacity: 0.5 + scrollProgress * 0.5
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)',
+            backgroundSize: '60px 60px'
           }} />
 
-          {/* Ambient glow orbs */}
-          <div style={{
-            position: 'absolute',
-            width: 600,
-            height: 600,
-            top: '-20%',
-            left: '-15%',
-            background: 'radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 60%)',
-            filter: 'blur(60px)',
-            transform: `scale(${1 + scrollProgress * 0.3})`
-          }} />
+          {/* Glow */}
           <div style={{
             position: 'absolute',
             width: 500,
             height: 500,
-            bottom: '-10%',
-            right: '-10%',
-            background: 'radial-gradient(circle, rgba(30, 58, 95, 0.15) 0%, transparent 60%)',
-            filter: 'blur(50px)',
-            transform: `scale(${1 + scrollProgress * 0.2})`
+            background: 'radial-gradient(circle, rgba(34, 197, 94, 0.06) 0%, transparent 70%)',
+            filter: 'blur(80px)'
           }} />
 
-          {/* Scan line effect */}
+          {/* Header - always centered */}
           <div style={{
             position: 'absolute',
-            top: `${(scrollProgress * 200) % 120}%`,
-            left: 0,
-            right: 0,
-            height: 2,
-            background: 'linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent)',
-            opacity: 0.6
-          }} />
-
-          {/* Top badge */}
-          <div style={{
-            position: 'absolute',
-            top: 40,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            padding: '10px 20px',
-            background: 'rgba(212, 175, 55, 0.1)',
-            border: '1px solid rgba(212, 175, 55, 0.2)',
-            borderRadius: 30,
-            opacity: Math.max(0, 1 - scrollProgress * 3)
-          }}>
-            <div style={{ width: 8, height: 8, background: '#22C55E', borderRadius: '50%', boxShadow: '0 0 10px #22C55E' }} />
-            <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12, fontWeight: 600, letterSpacing: '0.1em' }}>
-              LIVE • 2,847 ACTIVE USERS
-            </span>
-          </div>
-
-          {/* Brand heading */}
-          <h1 style={{
-            position: 'absolute',
-            top: '12%',
-            fontSize: 'clamp(42px, 10vw, 84px)',
-            fontWeight: 800,
-            color: 'white',
-            opacity: Math.max(0, 1 - scrollProgress * 1.8),
-            transform: `translateY(${scrollProgress * -60}px) scale(${1 - scrollProgress * 0.1})`,
-            transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+            top: 60,
             textAlign: 'center',
-            letterSpacing: '-0.04em'
+            opacity: Math.max(0, 1 - scrollProgress * 2)
           }}>
-            KHET<span style={{ color: '#D4AF37' }}>BANDHU</span>
-          </h1>
-
-          {/* Tagline */}
-          <p style={{
-            position: 'absolute',
-            top: '24%',
-            color: 'rgba(255,255,255,0.4)',
-            fontSize: 13,
-            letterSpacing: '0.25em',
-            fontWeight: 500,
-            opacity: Math.max(0, 1 - scrollProgress * 2.5),
-            transform: `translateY(${scrollProgress * -40}px)`
-          }}>
-            PREMIUM FARM EQUIPMENT PLATFORM
-          </p>
-
-          {/* Scroll indicator */}
-          <div style={{
-            position: 'absolute',
-            bottom: 50,
-            opacity: Math.max(0, 1 - scrollProgress * 5),
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 12
-          }}>
-            <span style={{ color: 'rgba(212, 175, 55, 0.6)', fontSize: 11, letterSpacing: '0.2em', fontWeight: 600 }}>
-              SCROLL TO EXPLORE
-            </span>
-            <div style={{
-              width: 1,
-              height: 40,
-              background: 'linear-gradient(to bottom, rgba(212, 175, 55, 0.5), transparent)',
-              animation: 'pulse 2s ease-in-out infinite'
-            }} />
+            <h1 style={{
+              fontSize: 48,
+              fontWeight: 700,
+              color: 'white',
+              margin: 0,
+              letterSpacing: '-0.03em'
+            }}>
+              KHET<span style={{ color: '#22C55E' }}>BANDHU</span>
+            </h1>
+            <p style={{
+              color: 'rgba(255,255,255,0.4)',
+              fontSize: 13,
+              marginTop: 12,
+              letterSpacing: '0.2em'
+            }}>
+              FARM EQUIPMENT MARKETPLACE
+            </p>
           </div>
 
-          {/* CENTRAL HEX LOGO - explodes on scroll */}
-          <div style={{ position: 'relative', width: 350, height: 350 }}>
-            {/* Main hexagon logo */}
+          {/* Central exploding element */}
+          <div style={{
+            position: 'relative',
+            width: 300,
+            height: 300,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            {/* Main circle */}
             <div style={{
               position: 'absolute',
-              left: '50%',
-              top: '50%',
-              transform: `translate(-50%, -50%) scale(${1 - scrollProgress * 0.4}) rotate(${scrollProgress * 15}deg)`,
-              width: 140,
-              height: 140,
-              background: 'linear-gradient(135deg, #D4AF37, #C9A227)',
-              clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-              opacity: Math.max(0, 1 - scrollProgress * 1.5),
-              filter: `blur(${scrollProgress * 10}px)`,
-              boxShadow: '0 0 60px rgba(212, 175, 55, 0.4)',
+              width: 120,
+              height: 120,
+              background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
+              borderRadius: '50%',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              boxShadow: '0 0 60px rgba(34, 197, 94, 0.4)',
+              opacity: Math.max(0, 1 - scrollProgress * 1.5),
+              transform: `scale(${1 - scrollProgress * 0.3})`,
+              transition: 'all 0.2s ease-out'
             }}>
-              <span style={{ fontSize: 50, color: '#0B1426' }}>🚜</span>
+              <span style={{ fontSize: 50 }}>🚜</span>
             </div>
 
-            {/* Orbiting ring */}
+            {/* Outer ring */}
             <div style={{
               position: 'absolute',
-              left: '50%',
-              top: '50%',
-              transform: `translate(-50%, -50%) rotate(${scrollProgress * 180}deg)`,
-              width: 200,
-              height: 200,
-              border: '1px solid rgba(212, 175, 55, 0.2)',
+              width: 180,
+              height: 180,
+              border: '1px solid rgba(34, 197, 94, 0.2)',
               borderRadius: '50%',
-              opacity: Math.max(0, 1 - scrollProgress * 1.2)
+              opacity: Math.max(0, 1 - scrollProgress * 1.2),
+              transform: `rotate(${scrollProgress * 90}deg)`,
+              transition: 'all 0.2s ease-out'
             }} />
 
-            {/* Exploding geometric parts */}
-            {explodeParts.map((part, i) => (
-              <div key={i} style={{
-                position: 'absolute',
-                left: '50%',
-                top: '50%',
-                opacity: scrollProgress > 0.1 ? Math.min((scrollProgress - 0.1) * 2, 1) : 0,
-                transform: `
-                  translate(-50%, -50%)
-                  translate(${part.x * scrollProgress * 1.3}px, ${part.y * scrollProgress * 1.3}px)
-                  rotate(${part.rotate + scrollProgress * 90}deg)
-                  scale(${0.3 + scrollProgress * 0.7})
-                `,
-                transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
-              }}>
-                {part.shape === 'circle' && (
-                  <div style={{
-                    width: part.size,
-                    height: part.size,
-                    background: `linear-gradient(135deg, ${part.color}, ${part.color}99)`,
-                    borderRadius: '50%',
-                    boxShadow: `0 0 ${20 + scrollProgress * 30}px ${part.color}66`
-                  }} />
-                )}
-                {part.shape === 'rect' && (
-                  <div style={{
-                    width: part.size,
-                    height: part.size * 0.6,
-                    background: `linear-gradient(135deg, ${part.color}, ${part.color}99)`,
-                    borderRadius: 8,
-                    boxShadow: `0 0 ${15 + scrollProgress * 20}px ${part.color}44`
-                  }} />
-                )}
-                {part.shape === 'diamond' && (
-                  <div style={{
-                    width: part.size,
-                    height: part.size,
-                    background: `linear-gradient(135deg, ${part.color}, ${part.color}99)`,
-                    clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
-                    boxShadow: `0 0 ${25 + scrollProgress * 25}px ${part.color}55`
-                  }} />
-                )}
-                {part.shape === 'ring' && (
-                  <div style={{
-                    width: part.size,
-                    height: part.size,
-                    border: `3px solid ${part.color}`,
-                    borderRadius: '50%',
-                    boxShadow: `0 0 ${15 + scrollProgress * 20}px ${part.color}44, inset 0 0 ${10 + scrollProgress * 15}px ${part.color}22`
-                  }} />
-                )}
-                {part.shape === 'line' && (
-                  <div style={{
-                    width: part.size,
-                    height: 3,
-                    background: `linear-gradient(90deg, transparent, ${part.color}, transparent)`,
-                    borderRadius: 2,
-                    boxShadow: `0 0 ${10 + scrollProgress * 15}px ${part.color}66`
-                  }} />
-                )}
-              </div>
+            {/* Exploding pieces - symmetric */}
+            {pieces.map((piece, i) => (
+              <div
+                key={i}
+                style={{
+                  position: 'absolute',
+                  width: piece.size,
+                  height: piece.size,
+                  background: i % 2 === 0
+                    ? 'linear-gradient(135deg, #22C55E, #16A34A)'
+                    : 'linear-gradient(135deg, #1a1a1a, #2a2a2a)',
+                  border: i % 2 === 0 ? 'none' : '1px solid rgba(34, 197, 94, 0.3)',
+                  borderRadius: i % 3 === 0 ? '50%' : 8,
+                  opacity: scrollProgress > 0.1 ? Math.min((scrollProgress - 0.1) * 2, 1) : 0,
+                  transform: `
+                    translate(${piece.x * scrollProgress * 1.2}px, ${piece.y * scrollProgress * 1.2}px)
+                    rotate(${scrollProgress * 45}deg)
+                    scale(${0.5 + scrollProgress * 0.5})
+                  `,
+                  boxShadow: i % 2 === 0 ? `0 0 ${20 + scrollProgress * 20}px rgba(34, 197, 94, 0.3)` : 'none',
+                  transition: `all 0.3s cubic-bezier(0.16, 1, 0.3, 1) ${piece.delay}s`
+                }}
+              />
             ))}
           </div>
 
-          {/* Progress percentage - luxury style */}
+          {/* Progress - centered below */}
           <div style={{
             position: 'absolute',
-            right: 50,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            opacity: scrollProgress > 0.15 ? 1 : 0,
-            transition: 'opacity 0.4s ease',
-            textAlign: 'right'
+            bottom: 180,
+            textAlign: 'center',
+            opacity: scrollProgress > 0.2 ? 1 : 0,
+            transition: 'opacity 0.3s ease'
           }}>
             <span style={{
-              fontSize: 56,
+              fontSize: 72,
               fontWeight: 200,
-              color: '#D4AF37',
-              letterSpacing: '-0.05em',
-              textShadow: '0 0 40px rgba(212, 175, 55, 0.3)'
+              color: '#22C55E',
+              letterSpacing: '-0.05em'
             }}>
               {Math.round(scrollProgress * 100)}
             </span>
-            <span style={{ fontSize: 20, color: 'rgba(212, 175, 55, 0.6)', marginLeft: 4 }}>%</span>
+            <span style={{ fontSize: 24, color: 'rgba(34, 197, 94, 0.5)', marginLeft: 4 }}>%</span>
           </div>
 
-          {/* Stats bar */}
+          {/* Scroll hint */}
           <div style={{
             position: 'absolute',
-            left: 50,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            opacity: scrollProgress > 0.3 ? Math.min((scrollProgress - 0.3) * 3, 1) : 0,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 20
+            bottom: 40,
+            textAlign: 'center',
+            opacity: Math.max(0, 1 - scrollProgress * 4)
           }}>
-            {[
-              { value: '₹47Cr+', label: 'GMV' },
-              { value: '52,000+', label: 'FARMERS' },
-              { value: '4.9', label: 'RATING' }
-            ].map((stat, i) => (
-              <div key={i}>
-                <p style={{ color: '#D4AF37', fontSize: 24, fontWeight: 300, margin: 0, letterSpacing: '-0.02em' }}>{stat.value}</p>
-                <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: 10, margin: '4px 0 0', letterSpacing: '0.15em' }}>{stat.label}</p>
-              </div>
-            ))}
+            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: 11, letterSpacing: '0.2em', margin: '0 0 12px' }}>
+              SCROLL TO CONTINUE
+            </p>
+            <div style={{
+              width: 20,
+              height: 32,
+              border: '2px solid rgba(255,255,255,0.2)',
+              borderRadius: 10,
+              margin: '0 auto',
+              position: 'relative'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: 6,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 3,
+                height: 6,
+                background: '#22C55E',
+                borderRadius: 2,
+                animation: 'scrollDot 1.5s ease-in-out infinite'
+              }} />
+            </div>
           </div>
 
-          {/* LOGIN CARDS - Premium glassmorphism */}
+          {/* Login cards - centered, appear on scroll */}
           <div style={{
             position: 'absolute',
-            bottom: 50,
+            bottom: 60,
             left: '50%',
-            transform: `translateX(-50%) translateY(${scrollProgress > 0.5 ? 0 : 100}px)`,
+            transform: `translateX(-50%) translateY(${scrollProgress > 0.6 ? 0 : 80}px)`,
+            opacity: scrollProgress > 0.6 ? (scrollProgress - 0.6) * 2.5 : 0,
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+            pointerEvents: scrollProgress > 0.7 ? 'auto' : 'none',
             width: '100%',
-            maxWidth: 500,
-            padding: '0 24px',
-            opacity: scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 : 0,
-            transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-            pointerEvents: scrollProgress > 0.6 ? 'auto' : 'none'
+            maxWidth: 440,
+            padding: '0 20px',
+            boxSizing: 'border-box'
           }}>
             <p style={{
               textAlign: 'center',
               color: 'rgba(255,255,255,0.4)',
               fontSize: 11,
-              letterSpacing: '0.2em',
-              marginBottom: 24,
-              fontWeight: 600
+              letterSpacing: '0.15em',
+              marginBottom: 20
             }}>
               SELECT YOUR ROLE
             </p>
 
             <div style={{ display: 'flex', gap: 16 }}>
-              {/* Farmer Card */}
               <button
                 onClick={() => onSelectRole('customer')}
                 style={{
                   flex: 1,
-                  background: 'rgba(255,255,255,0.03)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: 16,
-                  padding: '28px 20px',
+                  background: 'rgba(34, 197, 94, 0.06)',
+                  border: '1px solid rgba(34, 197, 94, 0.2)',
+                  borderRadius: 12,
+                  padding: '24px 16px',
                   cursor: 'pointer',
-                  transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                  transition: 'all 0.3s ease',
                   textAlign: 'center'
                 }}
                 onMouseOver={e => {
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.background = 'rgba(34, 197, 94, 0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.3)';
-                  e.currentTarget.style.boxShadow = '0 20px 50px rgba(34, 197, 94, 0.15)';
+                  e.currentTarget.style.background = 'rgba(34, 197, 94, 0.12)';
+                  e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+                  e.currentTarget.style.transform = 'translateY(-4px)';
                 }}
                 onMouseOut={e => {
+                  e.currentTarget.style.background = 'rgba(34, 197, 94, 0.06)';
+                  e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.2)';
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
-                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                <div style={{ fontSize: 36, marginBottom: 16 }}>👨‍🌾</div>
-                <p style={{ color: 'white', fontSize: 18, fontWeight: 600, margin: 0, letterSpacing: '-0.01em' }}>Farmer</p>
-                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, margin: '8px 0 0' }}>Book Equipment</p>
+                <div style={{ fontSize: 32, marginBottom: 12 }}>👨‍🌾</div>
+                <p style={{ color: 'white', fontSize: 16, fontWeight: 600, margin: 0 }}>Farmer</p>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, margin: '6px 0 0' }}>Book Equipment</p>
               </button>
 
-              {/* Owner Card */}
               <button
                 onClick={() => onSelectRole('owner')}
                 style={{
                   flex: 1,
-                  background: 'rgba(255,255,255,0.03)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: 16,
-                  padding: '28px 20px',
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  borderRadius: 12,
+                  padding: '24px 16px',
                   cursor: 'pointer',
-                  transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                  transition: 'all 0.3s ease',
                   textAlign: 'center'
                 }}
                 onMouseOver={e => {
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.background = 'rgba(212, 175, 55, 0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.3)';
-                  e.currentTarget.style.boxShadow = '0 20px 50px rgba(212, 175, 55, 0.12)';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                  e.currentTarget.style.transform = 'translateY(-4px)';
                 }}
                 onMouseOut={e => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
-                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                <div style={{ fontSize: 36, marginBottom: 16 }}>🚜</div>
-                <p style={{ color: 'white', fontSize: 18, fontWeight: 600, margin: 0, letterSpacing: '-0.01em' }}>Owner</p>
-                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, margin: '8px 0 0' }}>Earn Money</p>
+                <div style={{ fontSize: 32, marginBottom: 12 }}>🚜</div>
+                <p style={{ color: 'white', fontSize: 16, fontWeight: 600, margin: 0 }}>Owner</p>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, margin: '6px 0 0' }}>Earn Money</p>
               </button>
             </div>
           </div>
@@ -427,9 +314,9 @@ const ScrollExplodeLogin = ({ onSelectRole }) => {
       </div>
 
       <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 0.5; transform: scaleY(1); }
-          50% { opacity: 1; transform: scaleY(1.2); }
+        @keyframes scrollDot {
+          0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+          50% { opacity: 0.5; transform: translateX(-50%) translateY(8px); }
         }
       `}</style>
     </div>
