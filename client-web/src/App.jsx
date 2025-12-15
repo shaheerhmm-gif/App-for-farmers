@@ -1571,6 +1571,228 @@ const OwnerApp = ({ onLogout }) => {
     showToast('Statement generated!');
   };
 
+  // Export to Excel (CSV format for compatibility)
+  const exportToExcel = () => {
+    // Mock transaction data
+    const transactions = [
+      { date: '15 Dec 2024', description: 'Ploughing Service - 3 Acres', customer: 'Ramesh Patil', machine: 'Mahindra 575 DI', operator: 'Raju Kumar', status: 'Completed', amount: 1800 },
+      { date: '14 Dec 2024', description: 'Harvesting Service - 5 Acres', customer: 'Anita Sharma', machine: 'John Deere W70', operator: 'Mohan Das', status: 'Completed', amount: 4000 },
+      { date: '14 Dec 2024', description: 'JCB Excavation - 2 Hours', customer: 'Suresh Kumar', machine: 'JCB 3DX Super', operator: 'Sanjay Yadav', status: 'Completed', amount: 1600 },
+      { date: '13 Dec 2024', description: 'Spraying Service - 4 Acres', customer: 'Mohan Patel', machine: 'Swaraj 744 FE', operator: 'Vikram Singh', status: 'Completed', amount: 1200 },
+      { date: '13 Dec 2024', description: 'Transport - 25 km', customer: 'Geeta Devi', machine: 'Massey 1035 DI', operator: 'Amit Patel', status: 'Completed', amount: 375 },
+      { date: '12 Dec 2024', description: 'Ploughing Service - 6 Acres', customer: 'Rajesh Verma', machine: 'Mahindra 575 DI', operator: 'Raju Kumar', status: 'Completed', amount: 3600 },
+      { date: '12 Dec 2024', description: 'Withdrawal to Bank (HDFC ••••1234)', customer: '-', machine: '-', operator: '-', status: 'Completed', amount: -25000 },
+      { date: '11 Dec 2024', description: 'Harvesting Service - 8 Acres', customer: 'Kamla Devi', machine: 'John Deere W70', operator: 'Mohan Das', status: 'Completed', amount: 6400 },
+      { date: '10 Dec 2024', description: 'Ploughing Service - 2 Acres', customer: 'Ravi Shankar', machine: 'Swaraj 744 FE', operator: 'Vikram Singh', status: 'Completed', amount: 1200 },
+      { date: '09 Dec 2024', description: 'JCB Excavation - 4 Hours', customer: 'Dinesh Patel', machine: 'JCB 3DX Super', operator: 'Sanjay Yadav', status: 'Completed', amount: 3200 },
+      { date: '08 Dec 2024', description: 'Fuel Expense - Mahindra 575', customer: 'Depot', machine: 'Mahindra 575 DI', operator: '-', status: 'Expense', amount: -3500 },
+      { date: '07 Dec 2024', description: 'Spraying Service - 3 Acres', customer: 'Sunita Devi', machine: 'Massey 1035 DI', operator: 'Amit Patel', status: 'Completed', amount: 900 },
+      { date: '06 Dec 2024', description: 'Transport - 40 km', customer: 'Ram Prasad', machine: 'Swaraj 744 FE', operator: 'Vikram Singh', status: 'Completed', amount: 600 },
+      { date: '05 Dec 2024', description: 'Ploughing Service - 5 Acres', customer: 'Anil Kumar', machine: 'Mahindra 575 DI', operator: 'Raju Kumar', status: 'Completed', amount: 3000 },
+      { date: '04 Dec 2024', description: 'Harvesting Service - 10 Acres', customer: 'Meera Bai', machine: 'John Deere W70', operator: 'Mohan Das', status: 'Completed', amount: 8000 },
+    ];
+
+    // Create CSV content
+    const headers = ['Date', 'Description', 'Customer', 'Machine', 'Operator', 'Status', 'Amount (₹)'];
+    const csvRows = [
+      headers.join(','),
+      ...transactions.map(t => [
+        t.date,
+        `"${t.description}"`,
+        t.customer,
+        t.machine,
+        t.operator,
+        t.status,
+        t.amount
+      ].join(','))
+    ];
+
+    // Add summary rows
+    const totalEarnings = transactions.filter(t => t.amount > 0).reduce((a, t) => a + t.amount, 0);
+    const totalExpenses = Math.abs(transactions.filter(t => t.amount < 0).reduce((a, t) => a + t.amount, 0));
+    csvRows.push('');
+    csvRows.push(`"Total Earnings",,,,,"",${totalEarnings}`);
+    csvRows.push(`"Total Expenses",,,,,"",${totalExpenses}`);
+    csvRows.push(`"Net Income",,,,,"",${totalEarnings - totalExpenses}`);
+
+    const csvContent = csvRows.join('\n');
+    const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `KhetBandhu_Transactions_${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    showToast('📊 Excel file downloaded!');
+  };
+
+  // Download PDF Report
+  const downloadPDF = () => {
+    // Generate PDF-like HTML that can be saved as PDF
+    const pdfHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Khet Bandhu - Business Report</title>
+  <style>
+    @page { size: A4; margin: 20mm; }
+    @media print { body { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; color: #333; background: white; font-size: 11pt; line-height: 1.4; }
+    .page { max-width: 210mm; margin: 0 auto; padding: 20mm; }
+    .header { background: linear-gradient(135deg, #1B4332, #2D5A4A); color: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; }
+    .header h1 { font-size: 24pt; margin-bottom: 5px; }
+    .header p { opacity: 0.9; font-size: 10pt; }
+    .header .date { float: right; font-size: 9pt; opacity: 0.8; }
+    .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 25px; }
+    .summary-card { background: #f9f9f9; border-radius: 10px; padding: 15px; text-align: center; border: 1px solid #eee; }
+    .summary-card .value { font-size: 20pt; font-weight: 800; color: #1B4332; }
+    .summary-card .label { font-size: 8pt; color: #666; margin-top: 4px; text-transform: uppercase; }
+    .section { margin-bottom: 25px; }
+    .section-title { font-size: 14pt; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #1B4332; color: #1B4332; }
+    table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eee; }
+    th { background: #f5f5f5; font-weight: 600; color: #666; text-transform: uppercase; font-size: 8pt; }
+    .amount { font-weight: 700; color: #1B4332; }
+    .amount.negative { color: #EF4444; }
+    .status { padding: 3px 10px; border-radius: 12px; font-size: 8pt; font-weight: 600; }
+    .status.completed { background: #E8F5E9; color: #2E7D32; }
+    .status.expense { background: #FFEBEE; color: #C62828; }
+    .footer { text-align: center; padding-top: 20px; border-top: 1px solid #eee; font-size: 9pt; color: #999; }
+    .chart-bar { height: 20px; background: linear-gradient(90deg, #1B4332, #2D5A4A); border-radius: 4px; margin-bottom: 8px; }
+    .fleet-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .fleet-card { background: #f9f9f9; padding: 12px; border-radius: 8px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <span class="date">Generated: ${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+      <h1>🌾 Khet Bandhu</h1>
+      <p>Business Performance Report - December 2024</p>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="value">₹4.85L</div>
+        <div class="label">Total Revenue</div>
+      </div>
+      <div class="summary-card">
+        <div class="value">156</div>
+        <div class="label">Total Jobs</div>
+      </div>
+      <div class="summary-card">
+        <div class="value">5</div>
+        <div class="label">Active Machines</div>
+      </div>
+      <div class="summary-card">
+        <div class="value">4.8★</div>
+        <div class="label">Avg Rating</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">📊 Monthly Revenue Trend</div>
+      <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; text-align: center;">
+        ${[
+        { month: 'Jul', value: 42000, pct: 49 },
+        { month: 'Aug', value: 58000, pct: 68 },
+        { month: 'Sep', value: 71000, pct: 84 },
+        { month: 'Oct', value: 65000, pct: 76 },
+        { month: 'Nov', value: 78000, pct: 92 },
+        { month: 'Dec', value: 85000, pct: 100 }
+      ].map(d => `
+          <div>
+            <div class="chart-bar" style="height: ${d.pct * 0.6}px; margin-bottom: 5px;"></div>
+            <div style="font-weight: 700; font-size: 10pt;">₹${(d.value / 1000).toFixed(0)}K</div>
+            <div style="font-size: 8pt; color: #666;">${d.month}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🚜 Fleet Performance</div>
+      <table>
+        <thead>
+          <tr><th>Machine</th><th>Type</th><th>Jobs</th><th>Hours</th><th>Efficiency</th><th>Revenue</th></tr>
+        </thead>
+        <tbody>
+          ${machines.map(m => `
+            <tr>
+              <td><strong>${m.name}</strong></td>
+              <td>${m.type}</td>
+              <td>${m.jobs}</td>
+              <td>${m.hoursRun} hrs</td>
+              <td>${m.efficiency}%</td>
+              <td class="amount">₹${(m.revenue / 1000).toFixed(0)}K</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">👥 Team Performance</div>
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Role</th><th>Jobs</th><th>Rating</th><th>On-Time</th><th>Earnings</th></tr>
+        </thead>
+        <tbody>
+          ${team.map(t => `
+            <tr>
+              <td><strong>${t.name}</strong></td>
+              <td>${t.role}</td>
+              <td>${t.jobs}</td>
+              <td>⭐ ${t.rating}</td>
+              <td>${t.onTimeRate}%</td>
+              <td class="amount">₹${(t.earnings / 1000).toFixed(0)}K</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">📋 Recent Transactions</div>
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Description</th><th>Customer</th><th>Status</th><th>Amount</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>15 Dec</td><td>Ploughing - 3 Acres</td><td>Ramesh Patil</td><td><span class="status completed">Completed</span></td><td class="amount">+₹1,800</td></tr>
+          <tr><td>14 Dec</td><td>Harvesting - 5 Acres</td><td>Anita Sharma</td><td><span class="status completed">Completed</span></td><td class="amount">+₹4,000</td></tr>
+          <tr><td>13 Dec</td><td>JCB Excavation - 2 Hours</td><td>Suresh Kumar</td><td><span class="status completed">Completed</span></td><td class="amount">+₹1,600</td></tr>
+          <tr><td>12 Dec</td><td>Withdrawal to HDFC Bank</td><td>-</td><td><span class="status expense">Withdrawal</span></td><td class="amount negative">-₹25,000</td></tr>
+          <tr><td>11 Dec</td><td>Spraying - 4 Acres</td><td>Mohan Patel</td><td><span class="status completed">Completed</span></td><td class="amount">+₹1,200</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      <p><strong>Khet Bandhu</strong> - Your Farming Partner</p>
+      <p style="margin-top: 5px;">This is a computer-generated report. For queries, contact support@khetbandhu.com</p>
+      <p style="margin-top: 5px;">Report ID: KB-${Date.now()} | Owner: Ram Singh | Phone: +91 98765-43210</p>
+    </div>
+  </div>
+  <script>
+    window.onload = () => { 
+      document.title = 'Khet_Bandhu_Report_${new Date().toISOString().split('T')[0]}.pdf';
+      setTimeout(() => window.print(), 500); 
+    };
+  </script>
+</body>
+</html>`;
+
+    const blob = new Blob([pdfHTML], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+    showToast('📄 PDF Report ready! Use Print > Save as PDF');
+  };
+
   const OwnerHome = () => {
     const fleetValue = machines.reduce((a, m) => a + m.currentValue, 0);
     const fleetRevenue = machines.reduce((a, m) => a + m.revenue, 0);
@@ -2324,10 +2546,10 @@ const OwnerApp = ({ onLogout }) => {
 
             {/* Download Options */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
-              <button onClick={() => { downloadStatement(); setModal(null); }} style={{ background: '#1B4332', color: 'white', border: 'none', borderRadius: 12, padding: 14, cursor: 'pointer', fontWeight: 600, fontSize: 13 }}>
+              <button onClick={() => { downloadPDF(); setModal(null); }} style={{ background: 'linear-gradient(135deg, #1B4332, #2D5A4A)', color: 'white', border: 'none', borderRadius: 14, padding: 16, cursor: 'pointer', fontWeight: 600, fontSize: 14, boxShadow: '0 4px 12px rgba(27,67,50,0.3)', transition: 'all 0.2s' }}>
                 📄 Download PDF
               </button>
-              <button onClick={() => { showToast('Excel report generated!'); setModal(null); }} style={{ background: 'white', color: '#1B4332', border: '2px solid #1B4332', borderRadius: 12, padding: 14, cursor: 'pointer', fontWeight: 600, fontSize: 13 }}>
+              <button onClick={() => { exportToExcel(); setModal(null); }} style={{ background: 'white', color: '#1B4332', border: '2px solid #1B4332', borderRadius: 14, padding: 16, cursor: 'pointer', fontWeight: 600, fontSize: 14, transition: 'all 0.2s' }}>
                 📊 Export Excel
               </button>
             </div>
