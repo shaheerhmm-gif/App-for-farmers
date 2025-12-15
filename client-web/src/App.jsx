@@ -120,8 +120,11 @@ const ScrollExplodeLogin = ({ onSelectRole }) => {
             position: 'absolute',
             width: 320,
             height: 320,
-            opacity: scrollProgress > 0.1 ? Math.min((scrollProgress - 0.1) * 1.5, 1) : 0,
-            transition: 'opacity 0.5s ease'
+            opacity: scrollProgress > 0.6
+              ? Math.max(0, 1 - (scrollProgress - 0.6) * 4) // Fade out quickly
+              : (scrollProgress > 0.1 ? Math.min((scrollProgress - 0.1) * 1.5, 1) : 0),
+            transform: `scale(${1 - Math.max(0, scrollProgress - 0.6)})`, // Shrink slightly as it leaves
+            transition: 'opacity 0.3s ease, transform 0.3s ease'
           }}>
             {/* Core circle */}
             <div style={{
@@ -191,7 +194,9 @@ const ScrollExplodeLogin = ({ onSelectRole }) => {
             position: 'absolute',
             bottom: 200,
             textAlign: 'center',
-            opacity: scrollProgress > 0.3 ? Math.min((scrollProgress - 0.3) * 2, 1) : 0,
+            opacity: scrollProgress > 0.5
+              ? Math.max(0, 1 - (scrollProgress - 0.5) * 4) // Fade out before buttons
+              : (scrollProgress > 0.3 ? Math.min((scrollProgress - 0.3) * 2, 1) : 0),
             transition: 'opacity 0.4s ease'
           }}>
             <span style={{
