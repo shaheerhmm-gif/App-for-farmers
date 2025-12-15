@@ -123,16 +123,6 @@ const LoginPage = ({ onLogin }) => {
           }} />
         ))}
 
-        {/* Single Driving Tractor - Optimized */}
-        <div style={{
-          position: 'absolute',
-          bottom: '18%',
-          animation: 'tractorDrive 25s linear infinite',
-          fontSize: 44,
-          zIndex: 5,
-          willChange: 'left'
-        }}>🚜</div>
-
         {/* Main Content */}
         <div style={{
           flex: 1,
