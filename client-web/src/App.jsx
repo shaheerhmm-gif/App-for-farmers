@@ -24,28 +24,26 @@ const StarRating = ({ rating, onRate, size = 24 }) => (
   </div>
 );
 
-// ============ SCROLL EXPLODE LOGIN - PROFESSIONAL ============
+// ============ SCROLL EXPLODE LOGIN - AWARD WINNING ============
 const ScrollExplodeLogin = ({ onSelectRole }) => {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const handleScroll = (e) => {
     const container = e.target;
-    const scrollTop = container.scrollTop;
-    const scrollHeight = container.scrollHeight - container.clientHeight;
-    const progress = scrollHeight > 0 ? Math.min(scrollTop / scrollHeight, 1) : 0;
+    const progress = container.scrollHeight - container.clientHeight > 0
+      ? Math.min(container.scrollTop / (container.scrollHeight - container.clientHeight), 1)
+      : 0;
     setScrollProgress(progress);
   };
 
-  // Clean geometric pieces
-  const pieces = [
-    { x: -120, y: -100, size: 50, delay: 0 },
-    { x: 120, y: -100, size: 50, delay: 0.05 },
-    { x: -150, y: 0, size: 40, delay: 0.1 },
-    { x: 150, y: 0, size: 40, delay: 0.1 },
-    { x: -120, y: 100, size: 45, delay: 0.15 },
-    { x: 120, y: 100, size: 45, delay: 0.15 },
-    { x: 0, y: -130, size: 35, delay: 0.2 },
-    { x: 0, y: 130, size: 35, delay: 0.2 },
+  // Wireframe circles - minimal, elegant
+  const orbits = [
+    { radius: 60, startAngle: 0 },
+    { radius: 60, startAngle: 180 },
+    { radius: 100, startAngle: 60 },
+    { radius: 100, startAngle: 240 },
+    { radius: 140, startAngle: 120 },
+    { radius: 140, startAngle: 300 },
   ];
 
   return (
@@ -55,10 +53,11 @@ const ScrollExplodeLogin = ({ onSelectRole }) => {
         height: '100vh',
         overflowY: 'auto',
         overflowX: 'hidden',
-        background: 'linear-gradient(180deg, #0C0C0C 0%, #111111 100%)'
+        background: '#000000',
+        cursor: 'default'
       }}
     >
-      <div style={{ height: '300vh' }}>
+      <div style={{ height: '350vh' }}>
         <div style={{
           position: 'sticky',
           top: 0,
@@ -66,247 +65,246 @@ const ScrollExplodeLogin = ({ onSelectRole }) => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          overflow: 'hidden'
         }}>
 
-          {/* Subtle grid */}
+          {/* Dramatic Typography - THE HERO */}
           <div style={{
             position: 'absolute',
-            inset: 0,
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)',
-            backgroundSize: '60px 60px'
-          }} />
-
-          {/* Glow */}
-          <div style={{
-            position: 'absolute',
-            width: 500,
-            height: 500,
-            background: 'radial-gradient(circle, rgba(34, 197, 94, 0.06) 0%, transparent 70%)',
-            filter: 'blur(80px)'
-          }} />
-
-          {/* Header - always centered */}
-          <div style={{
-            position: 'absolute',
-            top: 60,
+            top: '15%',
             textAlign: 'center',
-            opacity: Math.max(0, 1 - scrollProgress * 2)
+            transform: `translateY(${scrollProgress * -100}px)`,
+            opacity: Math.max(0, 1 - scrollProgress * 1.5),
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
           }}>
             <h1 style={{
-              fontSize: 48,
-              fontWeight: 700,
-              color: 'white',
+              fontSize: 'clamp(60px, 15vw, 140px)',
+              fontWeight: 800,
+              color: '#ffffff',
               margin: 0,
-              letterSpacing: '-0.03em'
+              letterSpacing: '-0.06em',
+              lineHeight: 0.9
             }}>
-              KHET<span style={{ color: '#22C55E' }}>BANDHU</span>
+              KHET
             </h1>
-            <p style={{
-              color: 'rgba(255,255,255,0.4)',
-              fontSize: 13,
-              marginTop: 12,
-              letterSpacing: '0.2em'
+            <h1 style={{
+              fontSize: 'clamp(60px, 15vw, 140px)',
+              fontWeight: 800,
+              color: '#22C55E',
+              margin: 0,
+              letterSpacing: '-0.06em',
+              lineHeight: 0.9
             }}>
-              FARM EQUIPMENT MARKETPLACE
-            </p>
+              BANDHU
+            </h1>
           </div>
 
-          {/* Central exploding element */}
-          <div style={{
-            position: 'relative',
-            width: 300,
-            height: 300,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
+          {/* Minimal tagline */}
+          <p style={{
+            position: 'absolute',
+            top: '52%',
+            color: 'rgba(255,255,255,0.3)',
+            fontSize: 12,
+            letterSpacing: '0.3em',
+            fontWeight: 500,
+            opacity: Math.max(0, 1 - scrollProgress * 2),
+            transform: `translateY(${scrollProgress * -50}px)`,
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
           }}>
-            {/* Main circle */}
-            <div style={{
-              position: 'absolute',
-              width: 120,
-              height: 120,
-              background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 0 60px rgba(34, 197, 94, 0.4)',
-              opacity: Math.max(0, 1 - scrollProgress * 1.5),
-              transform: `scale(${1 - scrollProgress * 0.3})`,
-              transition: 'all 0.2s ease-out'
-            }}>
-              <span style={{ fontSize: 50 }}>🚜</span>
-            </div>
+            FARM EQUIPMENT
+          </p>
 
-            {/* Outer ring */}
-            <div style={{
-              position: 'absolute',
-              width: 180,
-              height: 180,
-              border: '1px solid rgba(34, 197, 94, 0.2)',
-              borderRadius: '50%',
-              opacity: Math.max(0, 1 - scrollProgress * 1.2),
-              transform: `rotate(${scrollProgress * 90}deg)`,
-              transition: 'all 0.2s ease-out'
-            }} />
-
-            {/* Exploding pieces - symmetric */}
-            {pieces.map((piece, i) => (
-              <div
-                key={i}
-                style={{
-                  position: 'absolute',
-                  width: piece.size,
-                  height: piece.size,
-                  background: i % 2 === 0
-                    ? 'linear-gradient(135deg, #22C55E, #16A34A)'
-                    : 'linear-gradient(135deg, #1a1a1a, #2a2a2a)',
-                  border: i % 2 === 0 ? 'none' : '1px solid rgba(34, 197, 94, 0.3)',
-                  borderRadius: i % 3 === 0 ? '50%' : 8,
-                  opacity: scrollProgress > 0.1 ? Math.min((scrollProgress - 0.1) * 2, 1) : 0,
-                  transform: `
-                    translate(${piece.x * scrollProgress * 1.2}px, ${piece.y * scrollProgress * 1.2}px)
-                    rotate(${scrollProgress * 45}deg)
-                    scale(${0.5 + scrollProgress * 0.5})
-                  `,
-                  boxShadow: i % 2 === 0 ? `0 0 ${20 + scrollProgress * 20}px rgba(34, 197, 94, 0.3)` : 'none',
-                  transition: `all 0.3s cubic-bezier(0.16, 1, 0.3, 1) ${piece.delay}s`
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Progress - centered below */}
+          {/* Central orbital system */}
           <div style={{
             position: 'absolute',
-            bottom: 180,
+            width: 320,
+            height: 320,
+            opacity: scrollProgress > 0.1 ? Math.min((scrollProgress - 0.1) * 1.5, 1) : 0,
+            transition: 'opacity 0.5s ease'
+          }}>
+            {/* Core circle */}
+            <div style={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 24,
+              height: 24,
+              border: '2px solid #22C55E',
+              borderRadius: '50%',
+              boxShadow: '0 0 30px rgba(34, 197, 94, 0.3)'
+            }} />
+
+            {/* Orbiting wireframe circles */}
+            {orbits.map((orbit, i) => {
+              const angle = (orbit.startAngle + scrollProgress * 360) * (Math.PI / 180);
+              const expandFactor = scrollProgress * 1.8;
+              const x = Math.cos(angle) * orbit.radius * expandFactor;
+              const y = Math.sin(angle) * orbit.radius * expandFactor;
+
+              return (
+                <div
+                  key={i}
+                  style={{
+                    position: 'absolute',
+                    left: '50%',
+                    top: '50%',
+                    width: 12 + (i * 2),
+                    height: 12 + (i * 2),
+                    border: `1px solid ${i % 2 === 0 ? 'rgba(34, 197, 94, 0.8)' : 'rgba(255,255,255,0.3)'}`,
+                    borderRadius: '50%',
+                    transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
+                    transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                  }}
+                />
+              );
+            })}
+
+            {/* Connecting lines */}
+            <svg style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%'
+            }}>
+              {[60, 120, 180, 240, 300, 360].map((angle, i) => {
+                const rad = (angle + scrollProgress * 360) * (Math.PI / 180);
+                const r = 80 * scrollProgress * 1.8;
+                return (
+                  <line
+                    key={i}
+                    x1="160"
+                    y1="160"
+                    x2={160 + Math.cos(rad) * r}
+                    y2={160 + Math.sin(rad) * r}
+                    stroke="rgba(34, 197, 94, 0.15)"
+                    strokeWidth="1"
+                  />
+                );
+              })}
+            </svg>
+          </div>
+
+          {/* Progress text - elegant */}
+          <div style={{
+            position: 'absolute',
+            bottom: 200,
             textAlign: 'center',
-            opacity: scrollProgress > 0.2 ? 1 : 0,
+            opacity: scrollProgress > 0.3 ? Math.min((scrollProgress - 0.3) * 2, 1) : 0,
+            transition: 'opacity 0.4s ease'
+          }}>
+            <span style={{
+              fontSize: 14,
+              fontWeight: 500,
+              color: 'rgba(255,255,255,0.4)',
+              letterSpacing: '0.15em'
+            }}>
+              {Math.round(scrollProgress * 100)}% LOADED
+            </span>
+          </div>
+
+          {/* Scroll indicator - elegant line */}
+          <div style={{
+            position: 'absolute',
+            bottom: 50,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 16,
+            opacity: Math.max(0, 1 - scrollProgress * 3),
             transition: 'opacity 0.3s ease'
           }}>
             <span style={{
-              fontSize: 72,
-              fontWeight: 200,
-              color: '#22C55E',
-              letterSpacing: '-0.05em'
+              fontSize: 10,
+              color: 'rgba(255,255,255,0.25)',
+              letterSpacing: '0.25em',
+              fontWeight: 500
             }}>
-              {Math.round(scrollProgress * 100)}
+              SCROLL
             </span>
-            <span style={{ fontSize: 24, color: 'rgba(34, 197, 94, 0.5)', marginLeft: 4 }}>%</span>
-          </div>
-
-          {/* Scroll hint */}
-          <div style={{
-            position: 'absolute',
-            bottom: 40,
-            textAlign: 'center',
-            opacity: Math.max(0, 1 - scrollProgress * 4)
-          }}>
-            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: 11, letterSpacing: '0.2em', margin: '0 0 12px' }}>
-              SCROLL TO CONTINUE
-            </p>
             <div style={{
-              width: 20,
-              height: 32,
-              border: '2px solid rgba(255,255,255,0.2)',
-              borderRadius: 10,
-              margin: '0 auto',
+              width: 1,
+              height: 50,
+              background: 'linear-gradient(to bottom, rgba(34, 197, 94, 0.5), transparent)',
               position: 'relative'
             }}>
               <div style={{
                 position: 'absolute',
-                top: 6,
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: 3,
-                height: 6,
+                top: 0,
+                left: -2,
+                width: 5,
+                height: 5,
                 background: '#22C55E',
-                borderRadius: 2,
-                animation: 'scrollDot 1.5s ease-in-out infinite'
+                borderRadius: '50%',
+                animation: 'scrollLine 2s ease-in-out infinite'
               }} />
             </div>
           </div>
 
-          {/* Login cards - centered, appear on scroll */}
+          {/* Login options - minimal cards */}
           <div style={{
             position: 'absolute',
-            bottom: 60,
+            bottom: 80,
             left: '50%',
-            transform: `translateX(-50%) translateY(${scrollProgress > 0.6 ? 0 : 80}px)`,
-            opacity: scrollProgress > 0.6 ? (scrollProgress - 0.6) * 2.5 : 0,
-            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-            pointerEvents: scrollProgress > 0.7 ? 'auto' : 'none',
+            transform: `translateX(-50%)`,
             width: '100%',
-            maxWidth: 440,
-            padding: '0 20px',
-            boxSizing: 'border-box'
+            maxWidth: 400,
+            padding: '0 24px',
+            boxSizing: 'border-box',
+            opacity: scrollProgress > 0.65 ? Math.min((scrollProgress - 0.65) * 3, 1) : 0,
+            pointerEvents: scrollProgress > 0.75 ? 'auto' : 'none',
+            transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
           }}>
-            <p style={{
-              textAlign: 'center',
-              color: 'rgba(255,255,255,0.4)',
-              fontSize: 11,
-              letterSpacing: '0.15em',
-              marginBottom: 20
-            }}>
-              SELECT YOUR ROLE
-            </p>
-
-            <div style={{ display: 'flex', gap: 16 }}>
+            <div style={{ display: 'flex', gap: 12 }}>
               <button
                 onClick={() => onSelectRole('customer')}
                 style={{
                   flex: 1,
-                  background: 'rgba(34, 197, 94, 0.06)',
-                  border: '1px solid rgba(34, 197, 94, 0.2)',
-                  borderRadius: 12,
-                  padding: '24px 16px',
+                  background: 'transparent',
+                  border: '1px solid rgba(34, 197, 94, 0.4)',
+                  borderRadius: 8,
+                  padding: '20px 16px',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease',
+                  transition: 'all 0.25s ease',
                   textAlign: 'center'
                 }}
                 onMouseOver={e => {
-                  e.currentTarget.style.background = 'rgba(34, 197, 94, 0.12)';
-                  e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.4)';
-                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.background = 'rgba(34, 197, 94, 0.08)';
+                  e.currentTarget.style.borderColor = '#22C55E';
                 }}
                 onMouseOut={e => {
-                  e.currentTarget.style.background = 'rgba(34, 197, 94, 0.06)';
-                  e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.2)';
-                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.4)';
                 }}
               >
-                <div style={{ fontSize: 32, marginBottom: 12 }}>👨‍🌾</div>
-                <p style={{ color: 'white', fontSize: 16, fontWeight: 600, margin: 0 }}>Farmer</p>
-                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, margin: '6px 0 0' }}>Book Equipment</p>
+                <p style={{ color: '#22C55E', fontSize: 14, fontWeight: 600, margin: 0, letterSpacing: '0.05em' }}>FARMER</p>
+                <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 11, margin: '8px 0 0' }}>Book Equipment</p>
               </button>
 
               <button
                 onClick={() => onSelectRole('owner')}
                 style={{
                   flex: 1,
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: 12,
-                  padding: '24px 16px',
+                  background: 'transparent',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  borderRadius: 8,
+                  padding: '20px 16px',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease',
+                  transition: 'all 0.25s ease',
                   textAlign: 'center'
                 }}
                 onMouseOver={e => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)';
                 }}
                 onMouseOut={e => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
                 }}
               >
-                <div style={{ fontSize: 32, marginBottom: 12 }}>🚜</div>
-                <p style={{ color: 'white', fontSize: 16, fontWeight: 600, margin: 0 }}>Owner</p>
-                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, margin: '6px 0 0' }}>Earn Money</p>
+                <p style={{ color: 'white', fontSize: 14, fontWeight: 600, margin: 0, letterSpacing: '0.05em' }}>OWNER</p>
+                <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 11, margin: '8px 0 0' }}>Earn Money</p>
               </button>
             </div>
           </div>
@@ -314,9 +312,9 @@ const ScrollExplodeLogin = ({ onSelectRole }) => {
       </div>
 
       <style>{`
-        @keyframes scrollDot {
-          0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
-          50% { opacity: 0.5; transform: translateX(-50%) translateY(8px); }
+        @keyframes scrollLine {
+          0% { transform: translateY(0); opacity: 1; }
+          100% { transform: translateY(45px); opacity: 0; }
         }
       `}</style>
     </div>
