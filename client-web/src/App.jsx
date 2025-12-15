@@ -55,48 +55,31 @@ const LoginPage = ({ onLogin }) => {
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        background: 'linear-gradient(165deg, #0D2818 0%, #1B4332 40%, #2D5A4A 100%)'
       }}>
-        {/* Background Image */}
+        {/* Ambient Light Effects */}
         <div style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: 'url(/farm-bg.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }} />
-
-        {/* Gradient Overlay */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'linear-gradient(180deg, rgba(27,67,50,0.85) 0%, rgba(45,90,74,0.75) 40%, rgba(61,107,90,0.6) 60%, rgba(245,245,220,0.95) 100%)'
-        }} />
-
-        {/* Decorative Elements */}
-        <div style={{
-          position: 'absolute',
-          top: -100,
-          right: -100,
-          width: 300,
-          height: 300,
-          background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)',
-          borderRadius: '50%'
+          top: '-20%',
+          right: '-10%',
+          width: '60%',
+          height: '60%',
+          background: 'radial-gradient(circle, rgba(116, 168, 146, 0.15) 0%, transparent 70%)',
+          borderRadius: '50%',
+          filter: 'blur(40px)',
+          pointerEvents: 'none'
         }} />
         <div style={{
           position: 'absolute',
-          top: 150,
-          left: -50,
-          width: 200,
-          height: 200,
-          background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
-          borderRadius: '50%'
+          bottom: '10%',
+          left: '-20%',
+          width: '50%',
+          height: '50%',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%)',
+          borderRadius: '50%',
+          filter: 'blur(30px)',
+          pointerEvents: 'none'
         }} />
 
         {/* Hero Section */}
@@ -106,46 +89,50 @@ const LoginPage = ({ onLogin }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '60px 24px 40px',
+          padding: '48px 24px 32px',
           textAlign: 'center',
           position: 'relative',
           zIndex: 10
         }}>
-          {/* Animated Tractor Icon */}
+          {/* Animated Logo */}
           <div style={{
-            fontSize: 80,
-            marginBottom: 24,
-            animation: 'float 3s ease-in-out infinite'
+            fontSize: 72,
+            marginBottom: 20,
+            animation: 'float 4s ease-in-out infinite',
+            filter: 'drop-shadow(0 12px 32px rgba(0,0,0,0.3))'
           }}>
             🚜
           </div>
 
           <h1 style={{
-            fontSize: 48,
+            fontSize: 44,
             fontWeight: 800,
-            fontFamily: 'Instrument Serif, serif',
+            fontFamily: "'Instrument Serif', Georgia, serif",
             color: 'white',
             margin: 0,
-            letterSpacing: -1,
-            textShadow: '0 4px 20px rgba(0,0,0,0.3)'
+            letterSpacing: '-0.03em',
+            textShadow: '0 4px 24px rgba(0,0,0,0.4)',
+            lineHeight: 1.1
           }}>
             KhetBandhu
           </h1>
 
           <p style={{
             fontSize: 18,
-            color: 'rgba(255,255,255,0.9)',
-            marginTop: 12,
-            fontWeight: 500
+            color: 'rgba(255,255,255,0.85)',
+            marginTop: 10,
+            fontWeight: 500,
+            letterSpacing: '0.02em'
           }}>
             खेत बंधु
           </p>
 
           <p style={{
             fontSize: 14,
-            color: 'rgba(255,255,255,0.7)',
+            color: 'rgba(255,255,255,0.6)',
             marginTop: 8,
-            maxWidth: 280
+            maxWidth: 260,
+            lineHeight: 1.5
           }}>
             Connecting Farmers with Equipment Owners
           </p>
@@ -153,128 +140,166 @@ const LoginPage = ({ onLogin }) => {
           {/* Feature Pills */}
           <div style={{
             display: 'flex',
-            gap: 8,
-            marginTop: 32,
+            gap: 10,
+            marginTop: 28,
             flexWrap: 'wrap',
             justifyContent: 'center'
           }}>
-            {['Book Tractors', 'JCB & Harvesters', 'Instant Booking'].map((f, i) => (
+            {['🚜 Book Tractors', '⛏️ JCB & More', '⚡ Instant'].map((f, i) => (
               <span key={i} style={{
-                background: 'rgba(255,255,255,0.15)',
-                backdropFilter: 'blur(10px)',
-                padding: '8px 16px',
-                borderRadius: 20,
-                fontSize: 12,
-                color: 'white',
-                fontWeight: 500
+                background: 'rgba(255,255,255,0.1)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                padding: '10px 18px',
+                borderRadius: 24,
+                fontSize: 13,
+                color: 'rgba(255,255,255,0.9)',
+                fontWeight: 500,
+                border: '1px solid rgba(255,255,255,0.1)',
+                animation: `slideUp 0.5s ease-out ${0.3 + i * 0.1}s backwards`
               }}>{f}</span>
             ))}
           </div>
         </div>
 
-        {/* Selection Cards */}
+        {/* Selection Cards Panel */}
         <div style={{
-          background: '#FAFAF5',
-          borderRadius: '40px 40px 0 0',
-          padding: '36px 24px 48px',
-          boxShadow: '0 -10px 40px rgba(0,0,0,0.1)',
+          background: 'linear-gradient(180deg, rgba(250,250,248,0.97) 0%, #FAFAF8 100%)',
+          borderRadius: '36px 36px 0 0',
+          padding: '32px 24px 44px',
+          boxShadow: '0 -12px 48px rgba(0,0,0,0.15)',
           position: 'relative',
           zIndex: 10
         }}>
           <p style={{
-            color: '#666',
-            fontSize: 14,
+            color: '#64748B',
+            fontSize: 13,
             textAlign: 'center',
             marginBottom: 24,
-            fontWeight: 500
+            fontWeight: 500,
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase'
           }}>
             Choose your account type
           </p>
 
+          {/* Farmer Button - Primary CTA */}
           <button
             onClick={() => setUserType('customer')}
             style={{
               width: '100%',
-              background: 'linear-gradient(135deg, #2D5A4A 0%, #1B4332 100%)',
+              background: 'linear-gradient(135deg, #1B4332 0%, #2D5A4A 60%, #3D6B5A 100%)',
               border: 'none',
-              borderRadius: 20,
-              padding: '22px 24px',
+              borderRadius: 22,
+              padding: '22px 26px',
               display: 'flex',
               alignItems: 'center',
-              gap: 16,
+              gap: 18,
               marginBottom: 14,
               cursor: 'pointer',
-              boxShadow: '0 8px 24px rgba(27,67,50,0.3)',
-              transition: 'transform 0.2s, box-shadow 0.2s'
+              boxShadow: '0 8px 28px rgba(27,67,50,0.35), 0 2px 8px rgba(27,67,50,0.2), inset 0 1px 0 rgba(255,255,255,0.1)',
+              transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+            onMouseOver={e => {
+              e.currentTarget.style.transform = 'translateY(-3px) scale(1.01)';
+              e.currentTarget.style.boxShadow = '0 14px 40px rgba(27,67,50,0.4), 0 4px 12px rgba(27,67,50,0.25)';
+            }}
+            onMouseOut={e => {
+              e.currentTarget.style.transform = 'translateY(0) scale(1)';
+              e.currentTarget.style.boxShadow = '0 8px 28px rgba(27,67,50,0.35), 0 2px 8px rgba(27,67,50,0.2)';
             }}
           >
             <div style={{
-              width: 56,
-              height: 56,
-              background: 'rgba(255,255,255,0.2)',
-              borderRadius: 16,
+              width: 58,
+              height: 58,
+              background: 'rgba(255,255,255,0.15)',
+              backdropFilter: 'blur(8px)',
+              borderRadius: 18,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 28
+              fontSize: 30,
+              boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.2)'
             }}>👨‍🌾</div>
             <div style={{ flex: 1, textAlign: 'left' }}>
-              <p style={{ color: 'white', fontSize: 18, fontWeight: 700, margin: 0 }}>I'm a Farmer</p>
-              <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 13, margin: '4px 0 0' }}>Book equipment for my fields</p>
+              <p style={{ color: 'white', fontSize: 19, fontWeight: 700, margin: 0, letterSpacing: '-0.01em' }}>I'm a Farmer</p>
+              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, margin: '5px 0 0', fontWeight: 400 }}>Book equipment for my fields</p>
             </div>
-            <span style={{ color: 'white', fontSize: 20, opacity: 0.8 }}>→</span>
+            <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: 22, transition: 'transform 0.3s ease' }}>→</span>
           </button>
 
+          {/* Owner Button - Secondary */}
           <button
             onClick={() => setUserType('owner')}
             style={{
               width: '100%',
               background: 'white',
-              border: '2px solid #E8E8E0',
-              borderRadius: 20,
-              padding: '22px 24px',
+              border: '1.5px solid #E2E8F0',
+              borderRadius: 22,
+              padding: '22px 26px',
               display: 'flex',
               alignItems: 'center',
-              gap: 16,
+              gap: 18,
               cursor: 'pointer',
-              transition: 'transform 0.2s, border-color 0.2s'
+              transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+            }}
+            onMouseOver={e => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.borderColor = '#74A892';
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+            }}
+            onMouseOut={e => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = '#E2E8F0';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
             }}
           >
             <div style={{
-              width: 56,
-              height: 56,
-              background: '#F0F0E8',
-              borderRadius: 16,
+              width: 58,
+              height: 58,
+              background: 'linear-gradient(135deg, #F1F8F2 0%, #E8F5E9 100%)',
+              borderRadius: 18,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 28
+              fontSize: 30,
+              border: '1px solid rgba(116,168,146,0.15)'
             }}>🚜</div>
             <div style={{ flex: 1, textAlign: 'left' }}>
-              <p style={{ color: '#1a1a1a', fontSize: 18, fontWeight: 700, margin: 0 }}>I'm an Owner</p>
-              <p style={{ color: '#666', fontSize: 13, margin: '4px 0 0' }}>Manage my fleet & earn money</p>
+              <p style={{ color: '#0F172A', fontSize: 19, fontWeight: 700, margin: 0, letterSpacing: '-0.01em' }}>I'm an Owner</p>
+              <p style={{ color: '#64748B', fontSize: 13, margin: '5px 0 0', fontWeight: 400 }}>Manage my fleet & earn money</p>
             </div>
-            <span style={{ color: '#999', fontSize: 20 }}>→</span>
+            <span style={{ color: '#94A3B8', fontSize: 22, transition: 'transform 0.3s ease' }}>→</span>
           </button>
 
+          {/* Trust Indicators */}
           <div style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: 20,
+            gap: 28,
             marginTop: 32,
-            color: '#999',
-            fontSize: 12
+            color: '#94A3B8',
+            fontSize: 12,
+            fontWeight: 500
           }}>
-            <span>🔒 Secure</span>
-            <span>⚡ Fast</span>
-            <span>💯 Free</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ fontSize: 14 }}>🔒</span> Secure</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ fontSize: 14 }}>⚡</span> Fast</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ fontSize: 14 }}>💯</span> Free</span>
           </div>
         </div>
 
         <style>{`
           @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(-2deg); }
+            75% { transform: translateY(-4px) rotate(1deg); }
+          }
+          @keyframes slideUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
           }
         `}</style>
       </div>
@@ -357,70 +382,190 @@ const CustomerApp = ({ onLogout }) => {
   const showToast = (msg, type = 'success') => { setToast({ msg, type }); setTimeout(() => setToast(null), 3000); };
 
   const CustomerHome = () => (
-    <div style={{ padding: 20, background: '#f5f5f0', minHeight: '100vh' }}>
-      {/* Hero Header */}
-      <header style={{ marginBottom: 20 }}>
+    <div style={{ padding: 20, background: 'linear-gradient(180deg, #FAFAF8 0%, #F5F3EF 100%)', minHeight: '100vh' }}>
+      {/* Premium Header */}
+      <header style={{ marginBottom: 24 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
-            <p style={{ fontSize: 14, color: '#666' }}>Welcome 🙏</p>
-            <h1 style={{ fontSize: 26, fontWeight: 800, margin: '4px 0' }}>Suresh Yadav</h1>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
-              <span style={{ fontSize: 11, color: '#666' }}>📍 Rampur, Uttar Pradesh</span>
-              <span style={{ fontSize: 11, background: '#E8F5E9', color: '#22C55E', padding: '2px 8px', borderRadius: 8 }}>🌤️ 28°C</span>
+            <p style={{ fontSize: 13, color: '#64748B', fontWeight: 500 }}>Welcome back 🙏</p>
+            <h1 style={{ fontSize: 28, fontWeight: 800, margin: '6px 0', color: '#0F172A', letterSpacing: '-0.02em' }}>Suresh Yadav</h1>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 6 }}>
+              <span style={{ fontSize: 12, color: '#64748B', display: 'flex', alignItems: 'center', gap: 4 }}>
+                <span style={{ fontSize: 14 }}>📍</span> Rampur, UP
+              </span>
+              <span style={{
+                fontSize: 11,
+                background: 'linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%)',
+                color: '#10B981',
+                padding: '4px 10px',
+                borderRadius: 20,
+                fontWeight: 600,
+                border: '1px solid rgba(16,185,129,0.15)'
+              }}>☀️ 28°C</span>
             </div>
           </div>
-          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-            <button onClick={() => setView('notifications')} style={{ background: 'white', border: 'none', width: 44, height: 44, borderRadius: 12, position: 'relative', cursor: 'pointer', fontSize: 18 }}>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            <button
+              onClick={() => setView('notifications')}
+              style={{
+                background: 'white',
+                border: 'none',
+                width: 48,
+                height: 48,
+                borderRadius: 16,
+                position: 'relative',
+                cursor: 'pointer',
+                fontSize: 20,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
+                transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
+              }}
+              onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+            >
               🔔
-              {notifications.filter(n => !n.read).length > 0 && <span style={{ position: 'absolute', top: 6, right: 6, width: 8, height: 8, background: '#EF4444', borderRadius: '50%' }} />}
+              {notifications.filter(n => !n.read).length > 0 && (
+                <span style={{
+                  position: 'absolute',
+                  top: 8,
+                  right: 8,
+                  width: 10,
+                  height: 10,
+                  background: '#EF4444',
+                  borderRadius: '50%',
+                  border: '2px solid white',
+                  animation: 'pulseGlow 2s ease-in-out infinite'
+                }} />
+              )}
             </button>
-            <Avatar seed="SureshYadav" size={44} />
+            <Avatar seed="SureshYadav" size={48} />
           </div>
         </div>
       </header>
 
-      {/* One-Tap Quick Book */}
-      <div style={{ background: 'linear-gradient(135deg, #1B4332, #2D5A4A)', borderRadius: 24, padding: 20, color: 'white', marginBottom: 16 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      {/* Premium Quick Book Card */}
+      <div style={{
+        background: 'linear-gradient(145deg, #0D2818 0%, #1B4332 40%, #2D5A4A 100%)',
+        borderRadius: 28,
+        padding: 24,
+        color: 'white',
+        marginBottom: 20,
+        boxShadow: '0 12px 40px rgba(13,40,24,0.3), 0 4px 12px rgba(13,40,24,0.2)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        {/* Ambient Glow */}
+        <div style={{
+          position: 'absolute',
+          top: '-50%',
+          right: '-20%',
+          width: '60%',
+          height: '120%',
+          background: 'radial-gradient(circle, rgba(116,168,146,0.12) 0%, transparent 60%)',
+          pointerEvents: 'none'
+        }} />
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, position: 'relative' }}>
           <div>
-            <p style={{ fontSize: 12, opacity: 0.8 }}>🚜 Book Machine Now</p>
-            <p style={{ fontSize: 20, fontWeight: 700, margin: '4px 0' }}>What do you need?</p>
+            <p style={{ fontSize: 13, opacity: 0.7, fontWeight: 500 }}>🚜 Book Equipment</p>
+            <p style={{ fontSize: 22, fontWeight: 700, margin: '6px 0', letterSpacing: '-0.01em' }}>What do you need?</p>
           </div>
-          <span style={{ fontSize: 10, background: 'rgba(34,197,94,0.3)', padding: '4px 10px', borderRadius: 12, color: '#86EFAC' }}>● 12 Available Near You</span>
+          <span style={{
+            fontSize: 11,
+            background: 'rgba(16,185,129,0.2)',
+            backdropFilter: 'blur(8px)',
+            padding: '6px 14px',
+            borderRadius: 20,
+            color: '#86EFAC',
+            fontWeight: 600,
+            border: '1px solid rgba(134,239,172,0.2)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6
+          }}>
+            <span style={{ width: 6, height: 6, background: '#86EFAC', borderRadius: '50%', animation: 'pulseGlow 2s infinite' }} />
+            12 Available
+          </span>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10, position: 'relative' }}>
           {[
             { icon: '🚜', label: 'Tractor', price: '600' },
             { icon: '⛏️', label: 'JCB', price: '1200' },
             { icon: '🌾', label: 'Harvester', price: '800' },
             { icon: '💨', label: 'Sprayer', price: '400' },
           ].map((s, i) => (
-            <button key={i} onClick={() => setModal({ type: 'book', service: services.find(sv => sv.name.toLowerCase().includes(s.label.toLowerCase())) || services[i] })} style={{ background: 'rgba(255,255,255,0.15)', border: 'none', borderRadius: 16, padding: 12, cursor: 'pointer', color: 'white', textAlign: 'center' }}>
-              <span style={{ fontSize: 28 }}>{s.icon}</span>
-              <p style={{ fontSize: 11, margin: '6px 0 2px', fontWeight: 600 }}>{s.label}</p>
-              <p style={{ fontSize: 10, opacity: 0.8 }}>₹{s.price}/hr</p>
+            <button
+              key={i}
+              onClick={() => setModal({ type: 'book', service: services.find(sv => sv.name.toLowerCase().includes(s.label.toLowerCase())) || services[i] })}
+              style={{
+                background: 'rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(8px)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: 18,
+                padding: '16px 8px',
+                cursor: 'pointer',
+                color: 'white',
+                textAlign: 'center',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+              }}
+              onMouseOver={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+                e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)';
+                e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.2)';
+              }}
+              onMouseOut={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <span style={{ fontSize: 32, display: 'block', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' }}>{s.icon}</span>
+              <p style={{ fontSize: 12, margin: '8px 0 3px', fontWeight: 600, letterSpacing: '0.01em' }}>{s.label}</p>
+              <p style={{ fontSize: 11, opacity: 0.6 }}>₹{s.price}/hr</p>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Live Stats Dashboard */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10, marginBottom: 16 }}>
-        <div style={{ background: 'white', borderRadius: 16, padding: 14, textAlign: 'center' }}>
-          <span style={{ fontSize: 24 }}>📋</span>
-          <p style={{ fontSize: 20, fontWeight: 800, color: '#1B4332', margin: '4px 0' }}>{myBookings.length}</p>
-          <p style={{ fontSize: 10, color: '#666' }}>My Bookings</p>
-        </div>
-        <div style={{ background: 'white', borderRadius: 16, padding: 14, textAlign: 'center' }}>
-          <span style={{ fontSize: 24 }}>💰</span>
-          <p style={{ fontSize: 20, fontWeight: 800, color: '#1B4332', margin: '4px 0' }}>₹{(myBookings.reduce((a, b) => a + b.amount, 0) / 1000).toFixed(1)}K</p>
-          <p style={{ fontSize: 10, color: '#666' }}>Total Spent</p>
-        </div>
-        <div style={{ background: 'white', borderRadius: 16, padding: 14, textAlign: 'center' }}>
-          <span style={{ fontSize: 24 }}>⭐</span>
-          <p style={{ fontSize: 20, fontWeight: 800, color: '#1B4332', margin: '4px 0' }}>4.9</p>
-          <p style={{ fontSize: 10, color: '#666' }}>Avg Rating</p>
-        </div>
+      {/* Premium Stats Cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 20 }}>
+        {[
+          { icon: '📋', value: myBookings.length, label: 'Bookings', color: '#7C3AED' },
+          { icon: '💰', value: `₹${(myBookings.reduce((a, b) => a + b.amount, 0) / 1000).toFixed(1)}K`, label: 'Spent', color: '#10B981' },
+          { icon: '⭐', value: '4.9', label: 'Rating', color: '#F59E0B' }
+        ].map((stat, i) => (
+          <div
+            key={i}
+            style={{
+              background: 'white',
+              borderRadius: 20,
+              padding: 18,
+              textAlign: 'center',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.04)',
+              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+              cursor: 'pointer'
+            }}
+            onMouseOver={e => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+            }}
+            onMouseOut={e => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
+            }}
+          >
+            <span style={{ fontSize: 26 }}>{stat.icon}</span>
+            <p style={{
+              fontSize: 22,
+              fontWeight: 800,
+              color: stat.color,
+              margin: '8px 0 4px',
+              fontVariantNumeric: 'tabular-nums',
+              letterSpacing: '-0.02em'
+            }}>{stat.value}</p>
+            <p style={{ fontSize: 11, color: '#64748B', fontWeight: 500 }}>{stat.label}</p>
+          </div>
+        ))}
       </div>
 
       {/* Active Booking Card */}
