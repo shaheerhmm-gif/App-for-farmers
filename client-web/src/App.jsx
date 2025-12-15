@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import InvestorPage from './InvestorPage';
 import './index.css';
 
 const formatCurrency = (v) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(v);
@@ -2962,10 +2963,23 @@ const OwnerApp = ({ onLogout }) => {
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isInvestorView, setIsInvestorView] = useState(false);
 
   useEffect(() => {
+    // Check for investor view in URL
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('view') === 'investor') {
+      setIsInvestorView(true);
+      setLoading(false);
+      return;
+    }
+
     setTimeout(() => setLoading(false), 1500);
   }, []);
+
+  if (isInvestorView) {
+    return <InvestorPage />;
+  }
 
   if (loading) {
     return (
