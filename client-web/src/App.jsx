@@ -1573,81 +1573,87 @@ const OwnerApp = ({ onLogout }) => {
 
   // Export to Excel (CSV format for compatibility)
   const exportToExcel = () => {
-    // Mock transaction data
-    const transactions = [
-      { date: '15 Dec 2024', description: 'Ploughing Service - 3 Acres', customer: 'Ramesh Patil', machine: 'Mahindra 575 DI', operator: 'Raju Kumar', status: 'Completed', amount: 1800 },
-      { date: '14 Dec 2024', description: 'Harvesting Service - 5 Acres', customer: 'Anita Sharma', machine: 'John Deere W70', operator: 'Mohan Das', status: 'Completed', amount: 4000 },
-      { date: '14 Dec 2024', description: 'JCB Excavation - 2 Hours', customer: 'Suresh Kumar', machine: 'JCB 3DX Super', operator: 'Sanjay Yadav', status: 'Completed', amount: 1600 },
-      { date: '13 Dec 2024', description: 'Spraying Service - 4 Acres', customer: 'Mohan Patel', machine: 'Swaraj 744 FE', operator: 'Vikram Singh', status: 'Completed', amount: 1200 },
-      { date: '13 Dec 2024', description: 'Transport - 25 km', customer: 'Geeta Devi', machine: 'Massey 1035 DI', operator: 'Amit Patel', status: 'Completed', amount: 375 },
-      { date: '12 Dec 2024', description: 'Ploughing Service - 6 Acres', customer: 'Rajesh Verma', machine: 'Mahindra 575 DI', operator: 'Raju Kumar', status: 'Completed', amount: 3600 },
-      { date: '12 Dec 2024', description: 'Withdrawal to Bank (HDFC ••••1234)', customer: '-', machine: '-', operator: '-', status: 'Completed', amount: -25000 },
-      { date: '11 Dec 2024', description: 'Harvesting Service - 8 Acres', customer: 'Kamla Devi', machine: 'John Deere W70', operator: 'Mohan Das', status: 'Completed', amount: 6400 },
-      { date: '10 Dec 2024', description: 'Ploughing Service - 2 Acres', customer: 'Ravi Shankar', machine: 'Swaraj 744 FE', operator: 'Vikram Singh', status: 'Completed', amount: 1200 },
-      { date: '09 Dec 2024', description: 'JCB Excavation - 4 Hours', customer: 'Dinesh Patel', machine: 'JCB 3DX Super', operator: 'Sanjay Yadav', status: 'Completed', amount: 3200 },
-      { date: '08 Dec 2024', description: 'Fuel Expense - Mahindra 575', customer: 'Depot', machine: 'Mahindra 575 DI', operator: '-', status: 'Expense', amount: -3500 },
-      { date: '07 Dec 2024', description: 'Spraying Service - 3 Acres', customer: 'Sunita Devi', machine: 'Massey 1035 DI', operator: 'Amit Patel', status: 'Completed', amount: 900 },
-      { date: '06 Dec 2024', description: 'Transport - 40 km', customer: 'Ram Prasad', machine: 'Swaraj 744 FE', operator: 'Vikram Singh', status: 'Completed', amount: 600 },
-      { date: '05 Dec 2024', description: 'Ploughing Service - 5 Acres', customer: 'Anil Kumar', machine: 'Mahindra 575 DI', operator: 'Raju Kumar', status: 'Completed', amount: 3000 },
-      { date: '04 Dec 2024', description: 'Harvesting Service - 10 Acres', customer: 'Meera Bai', machine: 'John Deere W70', operator: 'Mohan Das', status: 'Completed', amount: 8000 },
-    ];
+    console.log('exportToExcel called');
+    try {
+      const transactions = [
+        { date: '15 Dec 2024', description: 'Ploughing Service - 3 Acres', customer: 'Ramesh Patil', machine: 'Mahindra 575 DI', operator: 'Raju Kumar', status: 'Completed', amount: 1800 },
+        { date: '14 Dec 2024', description: 'Harvesting Service - 5 Acres', customer: 'Anita Sharma', machine: 'John Deere W70', operator: 'Mohan Das', status: 'Completed', amount: 4000 },
+        { date: '14 Dec 2024', description: 'JCB Excavation - 2 Hours', customer: 'Suresh Kumar', machine: 'JCB 3DX Super', operator: 'Sanjay Yadav', status: 'Completed', amount: 1600 },
+        { date: '13 Dec 2024', description: 'Spraying Service - 4 Acres', customer: 'Mohan Patel', machine: 'Swaraj 744 FE', operator: 'Vikram Singh', status: 'Completed', amount: 1200 },
+        { date: '13 Dec 2024', description: 'Transport - 25 km', customer: 'Geeta Devi', machine: 'Massey 1035 DI', operator: 'Amit Patel', status: 'Completed', amount: 375 },
+        { date: '12 Dec 2024', description: 'Ploughing Service - 6 Acres', customer: 'Rajesh Verma', machine: 'Mahindra 575 DI', operator: 'Raju Kumar', status: 'Completed', amount: 3600 },
+        { date: '12 Dec 2024', description: 'Withdrawal to Bank (HDFC ••••1234)', customer: '-', machine: '-', operator: '-', status: 'Completed', amount: -25000 },
+        { date: '11 Dec 2024', description: 'Harvesting Service - 8 Acres', customer: 'Kamla Devi', machine: 'John Deere W70', operator: 'Mohan Das', status: 'Completed', amount: 6400 },
+        { date: '10 Dec 2024', description: 'Ploughing Service - 2 Acres', customer: 'Ravi Shankar', machine: 'Swaraj 744 FE', operator: 'Vikram Singh', status: 'Completed', amount: 1200 },
+        { date: '09 Dec 2024', description: 'JCB Excavation - 4 Hours', customer: 'Dinesh Patel', machine: 'JCB 3DX Super', operator: 'Sanjay Yadav', status: 'Completed', amount: 3200 },
+        { date: '08 Dec 2024', description: 'Fuel Expense - Mahindra 575', customer: 'Depot', machine: 'Mahindra 575 DI', operator: '-', status: 'Expense', amount: -3500 },
+        { date: '07 Dec 2024', description: 'Spraying Service - 3 Acres', customer: 'Sunita Devi', machine: 'Massey 1035 DI', operator: 'Amit Patel', status: 'Completed', amount: 900 },
+        { date: '06 Dec 2024', description: 'Transport - 40 km', customer: 'Ram Prasad', machine: 'Swaraj 744 FE', operator: 'Vikram Singh', status: 'Completed', amount: 600 },
+        { date: '05 Dec 2024', description: 'Ploughing Service - 5 Acres', customer: 'Anil Kumar', machine: 'Mahindra 575 DI', operator: 'Raju Kumar', status: 'Completed', amount: 3000 },
+        { date: '04 Dec 2024', description: 'Harvesting Service - 10 Acres', customer: 'Meera Bai', machine: 'John Deere W70', operator: 'Mohan Das', status: 'Completed', amount: 8000 },
+      ];
 
-    // Create CSV content with proper escaping
-    const headers = ['Date', 'Description', 'Customer', 'Machine', 'Operator', 'Status', 'Amount'];
-    const escapeCSV = (str) => {
-      if (str === null || str === undefined) return '';
-      const s = String(str);
-      if (s.includes(',') || s.includes('"') || s.includes('\n')) {
-        return `"${s.replace(/"/g, '""')}"`;
+      // Create CSV content with proper escaping
+      const headers = ['Date', 'Description', 'Customer', 'Machine', 'Operator', 'Status', 'Amount'];
+      const escapeCSV = (str) => {
+        if (str === null || str === undefined) return '';
+        const s = String(str);
+        if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+          return `"${s.replace(/"/g, '""')}"`;
+        }
+        return s;
+      };
+
+      const csvRows = [
+        headers.join(','),
+        ...transactions.map(t => [
+          escapeCSV(t.date),
+          escapeCSV(t.description),
+          escapeCSV(t.customer),
+          escapeCSV(t.machine),
+          escapeCSV(t.operator),
+          escapeCSV(t.status),
+          t.amount
+        ].join(','))
+      ];
+
+      // Add summary rows
+      const totalEarnings = transactions.filter(t => t.amount > 0).reduce((a, t) => a + t.amount, 0);
+      const totalExpenses = Math.abs(transactions.filter(t => t.amount < 0).reduce((a, t) => a + t.amount, 0));
+      csvRows.push('');
+      csvRows.push(`Total Earnings,,,,,, ${totalEarnings}`);
+      csvRows.push(`Total Expenses,,,,,, ${totalExpenses}`);
+      csvRows.push(`Net Income,,,,,, ${totalEarnings - totalExpenses}`);
+
+      const csvContent = csvRows.join('\r\n');
+
+      // Use data URI method for better compatibility
+      const BOM = '\uFEFF';
+      const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8' });
+      const fileName = `KhetBandhu_Report_${new Date().toISOString().slice(0, 10)}.csv`;
+
+      // For iOS/Safari compatibility
+      if (navigator.msSaveBlob) {
+        navigator.msSaveBlob(blob, fileName);
+      } else {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.setAttribute('download', fileName);
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        }, 100);
       }
-      return s;
-    };
-
-    const csvRows = [
-      headers.join(','),
-      ...transactions.map(t => [
-        escapeCSV(t.date),
-        escapeCSV(t.description),
-        escapeCSV(t.customer),
-        escapeCSV(t.machine),
-        escapeCSV(t.operator),
-        escapeCSV(t.status),
-        t.amount
-      ].join(','))
-    ];
-
-    // Add summary rows
-    const totalEarnings = transactions.filter(t => t.amount > 0).reduce((a, t) => a + t.amount, 0);
-    const totalExpenses = Math.abs(transactions.filter(t => t.amount < 0).reduce((a, t) => a + t.amount, 0));
-    csvRows.push('');
-    csvRows.push(`Total Earnings,,,,,, ${totalEarnings}`);
-    csvRows.push(`Total Expenses,,,,,, ${totalExpenses}`);
-    csvRows.push(`Net Income,,,,,, ${totalEarnings - totalExpenses}`);
-
-    const csvContent = csvRows.join('\r\n');
-
-    // Use data URI method for better compatibility
-    const BOM = '\uFEFF';
-    const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8' });
-    const fileName = `KhetBandhu_Report_${new Date().toISOString().slice(0, 10)}.csv`;
-
-    // For iOS/Safari compatibility
-    if (navigator.msSaveBlob) {
-      navigator.msSaveBlob(blob, fileName);
-    } else {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.setAttribute('download', fileName);
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      }, 100);
+      console.log('CSV download triggered successfully');
+      showToast('📊 CSV file downloaded! Open in Excel.');
+    } catch (err) {
+      console.error('Export to Excel failed:', err);
+      showToast('❌ Export failed. Check console for details.');
     }
-    showToast('📊 CSV file downloaded! Open in Excel.');
   };
 
   // Download PDF Report
